@@ -315,8 +315,8 @@ void FindResponseFile(void)
 
 			// DISPLAY ARGS
 			//			printf("%d command-line
-			//args:\n",myargc); 			for (k=1;k<myargc;k++)
-			//				printf("%s\n",myargv[k]);
+			// args:\n",myargc); 			for
+			// (k=1;k<myargc;k++) 				printf("%s\n",myargv[k]);
 
 			break;
 		}

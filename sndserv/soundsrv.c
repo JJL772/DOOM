@@ -600,7 +600,7 @@ int main(int c, char **v)
 				if (rc > 0)
 				{
 					//	fprintf(stderr, "select is
-					//true\n");
+					// true\n");
 					// got a command
 					nrc = read(0, commandbuf, 1);
 

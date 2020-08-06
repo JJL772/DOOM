@@ -330,7 +330,7 @@ void S_StartSoundAtVolume(void *origin_p, int sfx_id, int volume)
 		// sfx->data = (void *) W_CacheLumpNum(sfx->lumpnum, PU_MUSIC);
 		// fprintf( stderr,
 		//	     "S_StartSoundAtVolume: loading %d (lump %d) :
-		//0x%x\n",
+		// 0x%x\n",
 		//       sfx_id, sfx->lumpnum, (int)sfx->data );
 	}
 #endif
