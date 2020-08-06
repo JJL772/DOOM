@@ -86,6 +86,7 @@ clean:
 $(O)/doom:	$(OBJS) $(O)/i_main.o
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(O)/i_main.o \
 	-o $(O)/doom $(LIBS)
+	cp $(O)/doom ../game/doom
 
 $(O)/%.o:	%.c
 	$(CC) $(CFLAGS) -c $< -o $@
