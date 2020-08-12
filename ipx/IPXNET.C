@@ -173,8 +173,7 @@ void SendPacket(int destination)
 
 	// set the address
 	for (j = 0; j < 6; j++)
-		packets[0].ipx.dNode[j] = packets[0].ecb.ImmediateAddress[j] =
-		    nodeadr[destination].node[j];
+		packets[0].ipx.dNode[j] = packets[0].ecb.ImmediateAddress[j] = nodeadr[destination].node[j];
 
 	// set the length (ipx + time + datalength)
 	packets[0].ecb.fSize  = sizeof(IPXPacket) + 4;
@@ -196,10 +195,7 @@ void SendPacket(int destination)
 	}
 }
 
-unsigned short ShortSwap(unsigned short i)
-{
-	return ((i & 255) << 8) + ((i >> 8) & 255);
-}
+unsigned short ShortSwap(unsigned short i) { return ((i & 255) << 8) + ((i >> 8) & 255); }
 
 /*
 ==============
@@ -255,8 +251,7 @@ int GetPacket(void)
 	// got a good packet
 	//
 	if (packet->ecb.CompletionCode)
-		Error("GetPacket: ecb.ComletionCode = 0x%x",
-		      packet->ecb.CompletionCode);
+		Error("GetPacket: ecb.ComletionCode = 0x%x", packet->ecb.CompletionCode);
 
 	// set remoteadr to the sender of the packet
 	memcpy(&remoteadr, packet->ipx.sNode, sizeof(remoteadr));

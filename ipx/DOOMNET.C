@@ -46,8 +46,7 @@ void LaunchDOOM(void)
 
 	// hook the interrupt vector
 	olddoomvect = getvect(doomcom.intnum);
-	setvect(doomcom.intnum,
-		(void interrupt (*)(void))MK_FP(_CS, (int)NetISR));
+	setvect(doomcom.intnum, (void interrupt (*)(void))MK_FP(_CS, (int)NetISR));
 	vectorishooked = 1;
 
 	// build the argument list for DOOM, adding a -net &doomcom

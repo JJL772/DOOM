@@ -86,10 +86,7 @@ void I_InitSound(int samplerate, int samplesize)
 		fprintf(stderr, "Could not play signed 16 data\n");
 }
 
-void I_SubmitOutputBuffer(void *samples, int samplecount)
-{
-	write(audio_fd, samples, samplecount * 4);
-}
+void I_SubmitOutputBuffer(void *samples, int samplecount) { write(audio_fd, samples, samplecount * 4); }
 
 void I_ShutdownSound(void) { close(audio_fd); }
 

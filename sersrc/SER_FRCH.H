@@ -1,10 +1,9 @@
 #define STR_DROPDTR   "Abandon de DTR"
 #define STR_CLEANEXIT "Sortie normale de SERSETUP"
-#define STR_ATTEMPT                                                            \
-	"Tentative de connexion en s‚rie, appuyez sur ESC pour annuler."
-#define STR_NETABORT "Synchronisation de jeu sur r‚seau annul‚e."
-#define STR_DUPLICATE                                                          \
-	"ChaŒne id en double. R‚essayez ou v‚rifiez la chaŒne "                \
+#define STR_ATTEMPT   "Tentative de connexion en s‚rie, appuyez sur ESC pour annuler."
+#define STR_NETABORT  "Synchronisation de jeu sur r‚seau annul‚e."
+#define STR_DUPLICATE                                                                                                  \
+	"ChaŒne id en double. R‚essayez ou v‚rifiez la chaŒne "                                                        \
 	"d'initialistion du modem."
 #define STR_MODEMCMD   "Commande du modem: "
 #define STR_MODEMRESP  "R‚ponse du modem: "
@@ -16,10 +15,10 @@
 #define STR_RING       "APPEL"
 #define STR_NORESP     "Ce fichier de r‚ponse n'existe pas!"
 #define STR_DOOMSERIAL "GESTIONNAIRE DE LIAISON SERIE DOOM II v1.4"
-#define STR_WARNING                                                            \
-	"Attention: pas de vecteurs d'interruption NULL ou iret trouv‚s "      \
-	"entre 0x60 et 0x66.\n"                                                \
-	"Vous pouvez sp‚cifier un vecteur avec le paramŠtre -vector "          \
+#define STR_WARNING                                                                                                    \
+	"Attention: pas de vecteurs d'interruption NULL ou iret trouv‚s "                                              \
+	"entre 0x60 et 0x66.\n"                                                                                        \
+	"Vous pouvez sp‚cifier un vecteur avec le paramŠtre -vector "                                                  \
 	"0x<num‚ro>."
 #define STR_COMM      "Communication avec le vecteur d'interruption 0x%x"
 #define STR_RETURNED  "Retour de DOOM II"

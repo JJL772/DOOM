@@ -141,8 +141,7 @@ void InitPort(void)
 	}
 	else
 	{
-		OUTPUT(uart + FIFO_CONTROL_REGISTER,
-		       FCR_FIFO_ENABLE + FCR_TRIGGER_04);
+		OUTPUT(uart + FIFO_CONTROL_REGISTER, FCR_FIFO_ENABLE + FCR_TRIGGER_04);
 		temp = INPUT(uart + INTERRUPT_ID_REGISTER);
 		if ((temp & 0xf8) == 0xc0)
 		{
@@ -206,8 +205,7 @@ void InitPort(void)
 
 	// enable RX and TX interrupts at the uart
 
-	OUTPUT(uart + INTERRUPT_ENABLE_REGISTER,
-	       IER_RX_DATA_READY + IER_TX_HOLDING_REGISTER_EMPTY);
+	OUTPUT(uart + INTERRUPT_ENABLE_REGISTER, IER_RX_DATA_READY + IER_TX_HOLDING_REGISTER_EMPTY);
 
 	// enable interrupts through the interrupt controller
 
@@ -309,7 +307,7 @@ void interrupt isr_8250(void)
 			//
 		case IIR_RX_DATA_READY_INTERRUPT:
 			// I_ColorBlack (0,63,0);
-			c = INPUT(uart + RECEIVE_BUFFER_REGISTER);
+			c				       = INPUT(uart + RECEIVE_BUFFER_REGISTER);
 			inque.data[inque.head & (QUESIZE - 1)] = c;
 			inque.head++;
 			break;
@@ -373,11 +371,10 @@ void interrupt isr_16550(void)
 			// I_ColorBlack (0,63,0);
 			do
 			{
-				c = INPUT(uart + RECEIVE_BUFFER_REGISTER);
+				c				       = INPUT(uart + RECEIVE_BUFFER_REGISTER);
 				inque.data[inque.head & (QUESIZE - 1)] = c;
 				inque.head++;
-			} while (INPUT(uart + LINE_STATUS_REGISTER) &
-				 LSR_DATA_READY);
+			} while (INPUT(uart + LINE_STATUS_REGISTER) & LSR_DATA_READY);
 
 			break;
 

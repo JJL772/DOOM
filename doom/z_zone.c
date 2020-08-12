@@ -62,8 +62,7 @@ void Z_ClearZone(memzone_t *zone)
 	memblock_t *block;
 
 	// set the entire zone to one free block
-	zone->blocklist.next = zone->blocklist.prev = block =
-	    (memblock_t *)((byte *)zone + sizeof(memzone_t));
+	zone->blocklist.next = zone->blocklist.prev = block = (memblock_t *)((byte *)zone + sizeof(memzone_t));
 
 	zone->blocklist.user = (void *)zone;
 	zone->blocklist.tag  = PU_STATIC;
@@ -198,8 +197,7 @@ void *Z_Malloc(int size, int tag, void *user)
 		if (rover == start)
 		{
 			// scanned all the way around the list
-			I_Error("Z_Malloc: failed on allocation of %i bytes",
-				size);
+			I_Error("Z_Malloc: failed on allocation of %i bytes", size);
 		}
 
 		if (rover->user)
@@ -279,8 +277,7 @@ void Z_FreeTags(int lowtag, int hightag)
 	memblock_t *block;
 	memblock_t *next;
 
-	for (block = mainzone->blocklist.next; block != &mainzone->blocklist;
-	     block = next)
+	for (block = mainzone->blocklist.next; block != &mainzone->blocklist; block = next)
 	{
 		// get link before freeing
 		next = block->next;
@@ -309,8 +306,8 @@ void Z_DumpHeap(int lowtag, int hightag)
 	for (block = mainzone->blocklist.next;; block = block->next)
 	{
 		if (block->tag >= lowtag && block->tag <= hightag)
-			printf("block:%p    size:%7i    user:%p    tag:%3i\n",
-			       block, block->size, block->user, block->tag);
+			printf("block:%p    size:%7i    user:%p    tag:%3i\n", block, block->size, block->user,
+			       block->tag);
 
 		if (block->next == &mainzone->blocklist)
 		{
@@ -342,8 +339,7 @@ void Z_FileDumpHeap(FILE *f)
 
 	for (block = mainzone->blocklist.next;; block = block->next)
 	{
-		fprintf(f, "block:%p    size:%7i    user:%p    tag:%3i\n",
-			block, block->size, block->user, block->tag);
+		fprintf(f, "block:%p    size:%7i    user:%p    tag:%3i\n", block, block->size, block->user, block->tag);
 
 		if (block->next == &mainzone->blocklist)
 		{
@@ -405,8 +401,7 @@ void Z_ChangeTag2(void *ptr, int tag)
 		I_Error("Z_ChangeTag: freed a pointer without ZONEID");
 
 	if (tag >= PU_PURGELEVEL && (unsigned)block->user < 0x100)
-		I_Error(
-		    "Z_ChangeTag: an owner is required for purgable blocks");
+		I_Error("Z_ChangeTag: an owner is required for purgable blocks");
 
 	block->tag = tag;
 }
@@ -421,8 +416,7 @@ int Z_FreeMemory(void)
 
 	free = 0;
 
-	for (block = mainzone->blocklist.next; block != &mainzone->blocklist;
-	     block = block->next)
+	for (block = mainzone->blocklist.next; block != &mainzone->blocklist; block = block->next)
 	{
 		if (!block->user || block->tag >= PU_PURGELEVEL)
 			free += block->size;

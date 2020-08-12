@@ -236,16 +236,14 @@ void G_BuildTiccmd(ticcmd_t *cmd)
 
 	cmd->consistancy = consistancy[consoleplayer][maketic % BACKUPTICS];
 
-	strafe = gamekeydown[key_strafe] || mousebuttons[mousebstrafe] ||
-		 joybuttons[joybstrafe];
-	speed = gamekeydown[key_speed] || joybuttons[joybspeed];
+	strafe = gamekeydown[key_strafe] || mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
+	speed  = gamekeydown[key_speed] || joybuttons[joybspeed];
 
 	forward = side = 0;
 
 	// use two stage accelerative turning
 	// on the keyboard and joystick
-	if (joyxmove < 0 || joyxmove > 0 || gamekeydown[key_right] ||
-	    gamekeydown[key_left])
+	if (joyxmove < 0 || joyxmove > 0 || gamekeydown[key_right] || gamekeydown[key_left])
 		turnheld += ticdup;
 	else
 		turnheld = 0;
@@ -307,8 +305,7 @@ void G_BuildTiccmd(ticcmd_t *cmd)
 	// buttons
 	cmd->chatchar = HU_dequeueChatChar();
 
-	if (gamekeydown[key_fire] || mousebuttons[mousebfire] ||
-	    joybuttons[joybfire])
+	if (gamekeydown[key_fire] || mousebuttons[mousebfire] || joybuttons[joybfire])
 		cmd->buttons |= BT_ATTACK;
 
 	if (gamekeydown[key_use] || joybuttons[joybuse])
@@ -409,9 +406,8 @@ void G_BuildTiccmd(ticcmd_t *cmd)
 
 	if (sendsave)
 	{
-		sendsave = false;
-		cmd->buttons =
-		    BT_SPECIAL | BTS_SAVEGAME | (savegameslot << BTS_SAVESHIFT);
+		sendsave     = false;
+		cmd->buttons = BT_SPECIAL | BTS_SAVEGAME | (savegameslot << BTS_SAVESHIFT);
 	}
 }
 
@@ -433,8 +429,7 @@ void G_DoLoadLevel(void)
 
 	// DOOM determines the sky texture to be used
 	// depending on the current episode, and the game version.
-	if ((gamemode == commercial) || (gamemode == pack_tnt) ||
-	    (gamemode == pack_plut))
+	if ((gamemode == commercial) || (gamemode == pack_tnt) || (gamemode == pack_plut))
 	{
 		skytexture = R_TextureNumForName("SKY3");
 		if (gamemap < 12)
@@ -479,8 +474,7 @@ void G_DoLoadLevel(void)
 boolean G_Responder(event_t *ev)
 {
 	// allow spy mode changes even during the demo
-	if (gamestate == GS_LEVEL && ev->type == ev_keydown &&
-	    ev->data1 == KEY_F12 && (singledemo || !deathmatch))
+	if (gamestate == GS_LEVEL && ev->type == ev_keydown && ev->data1 == KEY_F12 && (singledemo || !deathmatch))
 	{
 		// spy mode
 		do
@@ -488,17 +482,14 @@ boolean G_Responder(event_t *ev)
 			displayplayer++;
 			if (displayplayer == MAXPLAYERS)
 				displayplayer = 0;
-		} while (!playeringame[displayplayer] &&
-			 displayplayer != consoleplayer);
+		} while (!playeringame[displayplayer] && displayplayer != consoleplayer);
 		return true;
 	}
 
 	// any other key pops up menu if in demos
-	if (gameaction == ga_nothing && !singledemo &&
-	    (demoplayback || gamestate == GS_DEMOSCREEN))
+	if (gameaction == ga_nothing && !singledemo && (demoplayback || gamestate == GS_DEMOSCREEN))
 	{
-		if (ev->type == ev_keydown ||
-		    (ev->type == ev_mouse && ev->data1) ||
+		if (ev->type == ev_keydown || (ev->type == ev_mouse && ev->data1) ||
 		    (ev->type == ev_joystick && ev->data1))
 		{
 			M_StartControlPanel();
@@ -642,25 +633,21 @@ void G_Ticker(void)
 				G_WriteDemoTiccmd(cmd);
 
 			// check for turbo cheats
-			if (cmd->forwardmove > TURBOTHRESHOLD &&
-			    !(gametic & 31) && ((gametic >> 5) & 3) == i)
+			if (cmd->forwardmove > TURBOTHRESHOLD && !(gametic & 31) && ((gametic >> 5) & 3) == i)
 			{
 				static char  turbomessage[80];
 				extern char *player_names[4];
-				sprintf(turbomessage, "%s is turbo!",
-					player_names[i]);
+				sprintf(turbomessage, "%s is turbo!", player_names[i]);
 				players[consoleplayer].message = turbomessage;
 			}
 
 			if (netgame && !netdemo && !(gametic % ticdup))
 			{
-				if (gametic > BACKUPTICS &&
-				    consistancy[i][buf] != cmd->consistancy)
+				if (gametic > BACKUPTICS && consistancy[i][buf] != cmd->consistancy)
 				{
 					I_Error("consistency failure (%i "
 						"should be %i)",
-						cmd->consistancy,
-						consistancy[i][buf]);
+						cmd->consistancy, consistancy[i][buf]);
 				}
 				if (players[i].mo)
 					consistancy[i][buf] = players[i].mo->x;
@@ -689,12 +676,9 @@ void G_Ticker(void)
 
 				case BTS_SAVEGAME:
 					if (!savedescription[0])
-						strcpy(savedescription,
-						       "NET GAME");
-					savegameslot = (players[i].cmd.buttons &
-							BTS_SAVEMASK) >>
-						       BTS_SAVESHIFT;
-					gameaction = ga_savegame;
+						strcpy(savedescription, "NET GAME");
+					savegameslot = (players[i].cmd.buttons & BTS_SAVEMASK) >> BTS_SAVESHIFT;
+					gameaction   = ga_savegame;
 					break;
 				}
 			}
@@ -825,8 +809,7 @@ boolean G_CheckSpot(int playernum, mapthing_t *mthing)
 	{
 		// first spawn of level, before corpses
 		for (i = 0; i < playernum; i++)
-			if (players[i].mo->x == mthing->x << FRACBITS &&
-			    players[i].mo->y == mthing->y << FRACBITS)
+			if (players[i].mo->x == mthing->x << FRACBITS && players[i].mo->y == mthing->y << FRACBITS)
 				return false;
 		return true;
 	}
@@ -847,8 +830,7 @@ boolean G_CheckSpot(int playernum, mapthing_t *mthing)
 	ss = R_PointInSubsector(x, y);
 	an = (ANG45 * (mthing->angle / 45)) >> ANGLETOFINESHIFT;
 
-	mo = P_SpawnMobj(x + 20 * finecosine[an], y + 20 * finesine[an],
-			 ss->sector->floorheight, MT_TFOG);
+	mo = P_SpawnMobj(x + 20 * finecosine[an], y + 20 * finesine[an], ss->sector->floorheight, MT_TFOG);
 
 	if (players[consoleplayer].viewz != 1)
 		S_StartSound(mo,
@@ -923,8 +905,7 @@ void G_DoReborn(int playernum)
 		{
 			if (G_CheckSpot(playernum, &playerstarts[i]))
 			{
-				playerstarts[i].type =
-				    playernum + 1; // fake as other player
+				playerstarts[i].type = playernum + 1; // fake as other player
 				P_SpawnPlayer(&playerstarts[i]);
 				playerstarts[i].type = i + 1; // restore
 				return;
@@ -1087,8 +1068,7 @@ void G_DoCompleted(void)
 		wminfo.plyr[i].sitems  = players[i].itemcount;
 		wminfo.plyr[i].ssecret = players[i].secretcount;
 		wminfo.plyr[i].stime   = leveltime;
-		memcpy(wminfo.plyr[i].frags, players[i].frags,
-		       sizeof(wminfo.plyr[i].frags));
+		memcpy(wminfo.plyr[i].frags, players[i].frags, sizeof(wminfo.plyr[i].frags));
 	}
 
 	gamestate     = GS_INTERMISSION;
@@ -1229,8 +1209,7 @@ void G_DoSaveGame(void)
 	int   i;
 
 	if (M_CheckParm("-cdrom"))
-		sprintf(name, "c:\\doomdata\\" SAVEGAMENAME "%d.dsg",
-			savegameslot);
+		sprintf(name, "c:\\doomdata\\" SAVEGAMENAME "%d.dsg", savegameslot);
 	else
 		sprintf(name, SAVEGAMENAME "%d.dsg", savegameslot);
 	description = savedescription;
@@ -1579,8 +1558,7 @@ boolean G_CheckDemoStatus(void)
 	if (timingdemo)
 	{
 		endtime = I_GetTime();
-		I_Error("timed %i gametics in %i realtics", gametic,
-			endtime - starttime);
+		I_Error("timed %i gametics in %i realtics", gametic, endtime - starttime);
 	}
 
 	if (demoplayback)

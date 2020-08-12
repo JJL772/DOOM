@@ -193,8 +193,8 @@ void P_LoadSubsectors(int lump)
 	subsector_t *	ss;
 
 	numsubsectors = W_LumpLength(lump) / sizeof(mapsubsector_t);
-	subsectors = Z_Malloc(numsubsectors * sizeof(subsector_t), PU_LEVEL, 0);
-	data	   = W_CacheLumpNum(lump, PU_STATIC);
+	subsectors    = Z_Malloc(numsubsectors * sizeof(subsector_t), PU_LEVEL, 0);
+	data	      = W_CacheLumpNum(lump, PU_STATIC);
 
 	ms = (mapsubsector_t *)data;
 	memset(subsectors, 0, numsubsectors * sizeof(subsector_t));
@@ -270,8 +270,7 @@ void P_LoadNodes(int lump)
 		{
 			no->children[j] = SHORT(mn->children[j]);
 			for (k = 0; k < 4; k++)
-				no->bbox[j][k] = SHORT(mn->bbox[j][k])
-						 << FRACBITS;
+				no->bbox[j][k] = SHORT(mn->bbox[j][k]) << FRACBITS;
 		}
 	}
 
@@ -520,8 +519,7 @@ void P_GroupLines(void)
 		li	      = lines;
 		for (j = 0; j < numlines; j++, li++)
 		{
-			if (li->frontsector == sector ||
-			    li->backsector == sector)
+			if (li->frontsector == sector || li->backsector == sector)
 			{
 				*linebuffer++ = li;
 				M_AddToBox(bbox, li->v1->x, li->v1->y);
@@ -536,22 +534,20 @@ void P_GroupLines(void)
 		sector->soundorg.y = (bbox[BOXTOP] + bbox[BOXBOTTOM]) / 2;
 
 		// adjust bounding box to map blocks
-		block = (bbox[BOXTOP] - bmaporgy + MAXRADIUS) >> MAPBLOCKSHIFT;
-		block = block >= bmapheight ? bmapheight - 1 : block;
+		block			 = (bbox[BOXTOP] - bmaporgy + MAXRADIUS) >> MAPBLOCKSHIFT;
+		block			 = block >= bmapheight ? bmapheight - 1 : block;
 		sector->blockbox[BOXTOP] = block;
 
-		block =
-		    (bbox[BOXBOTTOM] - bmaporgy - MAXRADIUS) >> MAPBLOCKSHIFT;
+		block			    = (bbox[BOXBOTTOM] - bmaporgy - MAXRADIUS) >> MAPBLOCKSHIFT;
 		block			    = block < 0 ? 0 : block;
 		sector->blockbox[BOXBOTTOM] = block;
 
-		block =
-		    (bbox[BOXRIGHT] - bmaporgx + MAXRADIUS) >> MAPBLOCKSHIFT;
-		block = block >= bmapwidth ? bmapwidth - 1 : block;
+		block			   = (bbox[BOXRIGHT] - bmaporgx + MAXRADIUS) >> MAPBLOCKSHIFT;
+		block			   = block >= bmapwidth ? bmapwidth - 1 : block;
 		sector->blockbox[BOXRIGHT] = block;
 
-		block = (bbox[BOXLEFT] - bmaporgx - MAXRADIUS) >> MAPBLOCKSHIFT;
-		block = block < 0 ? 0 : block;
+		block			  = (bbox[BOXLEFT] - bmaporgx - MAXRADIUS) >> MAPBLOCKSHIFT;
+		block			  = block < 0 ? 0 : block;
 		sector->blockbox[BOXLEFT] = block;
 	}
 }
@@ -569,8 +565,7 @@ void P_SetupLevel(int episode, int map, int playermask, skill_t skill)
 	wminfo.partime						= 180;
 	for (i = 0; i < MAXPLAYERS; i++)
 	{
-		players[i].killcount	 = players[i].secretcount =
-		    players[i].itemcount = 0;
+		players[i].killcount = players[i].secretcount = players[i].itemcount = 0;
 	}
 
 	// Initial height of PointOfView

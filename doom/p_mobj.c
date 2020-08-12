@@ -166,8 +166,7 @@ void P_XYMovement(mobj_t *mo)
 			{
 				// explode a missile
 				if (ceilingline && ceilingline->backsector &&
-				    ceilingline->backsector->ceilingpic ==
-					skyflatnum)
+				    ceilingline->backsector->ceilingpic == skyflatnum)
 				{
 					// Hack to prevent missiles exploding
 					// against the sky.
@@ -200,22 +199,19 @@ void P_XYMovement(mobj_t *mo)
 	{
 		// do not stop sliding
 		//  if halfway off a step with some momentum
-		if (mo->momx > FRACUNIT / 4 || mo->momx < -FRACUNIT / 4 ||
-		    mo->momy > FRACUNIT / 4 || mo->momy < -FRACUNIT / 4)
+		if (mo->momx > FRACUNIT / 4 || mo->momx < -FRACUNIT / 4 || mo->momy > FRACUNIT / 4 ||
+		    mo->momy < -FRACUNIT / 4)
 		{
 			if (mo->floorz != mo->subsector->sector->floorheight)
 				return;
 		}
 	}
 
-	if (mo->momx > -STOPSPEED && mo->momx < STOPSPEED &&
-	    mo->momy > -STOPSPEED && mo->momy < STOPSPEED &&
-	    (!player ||
-	     (player->cmd.forwardmove == 0 && player->cmd.sidemove == 0)))
+	if (mo->momx > -STOPSPEED && mo->momx < STOPSPEED && mo->momy > -STOPSPEED && mo->momy < STOPSPEED &&
+	    (!player || (player->cmd.forwardmove == 0 && player->cmd.sidemove == 0)))
 	{
 		// if in a walking frame, stop moving
-		if (player &&
-		    (unsigned)((player->mo->state - states) - S_PLAY_RUN1) < 4)
+		if (player && (unsigned)((player->mo->state - states) - S_PLAY_RUN1) < 4)
 			P_SetMobjState(player->mo, S_PLAY);
 
 		mo->momx = 0;
@@ -241,8 +237,7 @@ void P_ZMovement(mobj_t *mo)
 	{
 		mo->player->viewheight -= mo->floorz - mo->z;
 
-		mo->player->deltaviewheight =
-		    (VIEWHEIGHT - mo->player->viewheight) >> 3;
+		mo->player->deltaviewheight = (VIEWHEIGHT - mo->player->viewheight) >> 3;
 	}
 
 	// adjust height
@@ -253,8 +248,7 @@ void P_ZMovement(mobj_t *mo)
 		// float down towards target if too close
 		if (!(mo->flags & MF_SKULLFLY) && !(mo->flags & MF_INFLOAT))
 		{
-			dist = P_AproxDistance(mo->x - mo->target->x,
-					       mo->y - mo->target->y);
+			dist = P_AproxDistance(mo->x - mo->target->x, mo->y - mo->target->y);
 
 			delta = (mo->target->z + (mo->height >> 1)) - mo->z;
 
@@ -351,8 +345,7 @@ void P_NightmareRespawn(mobj_t *mobj)
 
 	// spawn a teleport fog at old spot
 	// because of removal of the body?
-	mo = P_SpawnMobj(mobj->x, mobj->y, mobj->subsector->sector->floorheight,
-			 MT_TFOG);
+	mo = P_SpawnMobj(mobj->x, mobj->y, mobj->subsector->sector->floorheight, MT_TFOG);
 	// initiate teleport sound
 	S_StartSound(mo, sfx_telept);
 
@@ -509,8 +502,8 @@ int	   iquetail;
 
 void P_RemoveMobj(mobj_t *mobj)
 {
-	if ((mobj->flags & MF_SPECIAL) && !(mobj->flags & MF_DROPPED) &&
-	    (mobj->type != MT_INV) && (mobj->type != MT_INS))
+	if ((mobj->flags & MF_SPECIAL) && !(mobj->flags & MF_DROPPED) && (mobj->type != MT_INV) &&
+	    (mobj->type != MT_INS))
 	{
 		itemrespawnque[iquehead]  = mobj->spawnpoint;
 		itemrespawntime[iquehead] = leveltime;
@@ -711,8 +704,7 @@ void P_SpawnMapThing(mapthing_t *mthing)
 			break;
 
 	if (i == NUMMOBJTYPES)
-		I_Error("P_SpawnMapThing: Unknown type %i at (%i, %i)",
-			mthing->type, mthing->x, mthing->y);
+		I_Error("P_SpawnMapThing: Unknown type %i at (%i, %i)", mthing->type, mthing->x, mthing->y);
 
 	// don't spawn keycards and players in deathmatch
 	if (deathmatch && mobjinfo[i].flags & MF_NOTDMATCH)
@@ -826,8 +818,7 @@ mobj_t *P_SpawnMissile(mobj_t *source, mobj_t *dest, mobjtype_t type)
 	angle_t an;
 	int	dist;
 
-	th = P_SpawnMobj(source->x, source->y, source->z + 4 * 8 * FRACUNIT,
-			 type);
+	th = P_SpawnMobj(source->x, source->y, source->z + 4 * 8 * FRACUNIT, type);
 
 	if (th->info->seesound)
 		S_StartSound(th, th->info->seesound);
@@ -903,10 +894,9 @@ void P_SpawnPlayerMissile(mobj_t *source, mobjtype_t type)
 
 	th->target = source;
 	th->angle  = an;
-	th->momx =
-	    FixedMul(th->info->speed, finecosine[an >> ANGLETOFINESHIFT]);
-	th->momy = FixedMul(th->info->speed, finesine[an >> ANGLETOFINESHIFT]);
-	th->momz = FixedMul(th->info->speed, slope);
+	th->momx   = FixedMul(th->info->speed, finecosine[an >> ANGLETOFINESHIFT]);
+	th->momy   = FixedMul(th->info->speed, finesine[an >> ANGLETOFINESHIFT]);
+	th->momz   = FixedMul(th->info->speed, slope);
 
 	P_CheckMissileSpawn(th);
 }

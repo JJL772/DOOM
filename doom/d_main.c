@@ -150,8 +150,7 @@ void D_ProcessEvents(void)
 	if ((gamemode == commercial) && (W_CheckNumForName("map01") < 0))
 		return;
 
-	for (; eventtail != eventhead;
-	     eventtail = (++eventtail) & (MAXEVENTS - 1))
+	for (; eventtail != eventhead; eventtail = (++eventtail) & (MAXEVENTS - 1))
 	{
 		ev = &events[eventtail];
 		if (M_Responder(ev))
@@ -259,7 +258,7 @@ void D_Display(void)
 	if (gamestate == GS_LEVEL && oldgamestate != GS_LEVEL)
 	{
 		viewactivestate = false; // view was not active
-		R_FillBackScreen(); // draw the pattern into the back screen
+		R_FillBackScreen();	 // draw the pattern into the back screen
 	}
 
 	// see if the border needs to be updated to the screen
@@ -286,8 +285,7 @@ void D_Display(void)
 			y = 4;
 		else
 			y = viewwindowy + 4;
-		V_DrawPatchDirect(viewwindowx + (scaledviewwidth - 68) / 2, y,
-				  0, W_CacheLumpName("M_PAUSE", PU_CACHE));
+		V_DrawPatchDirect(viewwindowx + (scaledviewwidth - 68) / 2, y, 0, W_CacheLumpName("M_PAUSE", PU_CACHE));
 	}
 
 	// menus go directly to the screen
@@ -314,8 +312,7 @@ void D_Display(void)
 			tics	= nowtime - wipestart;
 		} while (!tics);
 		wipestart = nowtime;
-		done	  = wipe_ScreenWipe(wipe_Melt, 0, 0, SCREENWIDTH,
-					    SCREENHEIGHT, tics);
+		done	  = wipe_ScreenWipe(wipe_Melt, 0, 0, SCREENWIDTH, SCREENHEIGHT, tics);
 		I_UpdateNoBlit();
 		M_Drawer();	  // menu is drawn even on top of wipes
 		I_FinishUpdate(); // page flip or blit buffer
@@ -352,8 +349,7 @@ void D_DoomLoop(void)
 		{
 			I_StartTic();
 			D_ProcessEvents();
-			G_BuildTiccmd(
-			    &netcmds[consoleplayer][maketic % BACKUPTICS]);
+			G_BuildTiccmd(&netcmds[consoleplayer][maketic % BACKUPTICS]);
 			if (advancedemo)
 				D_DoAdvanceDemo();
 			M_Ticker();
@@ -366,8 +362,7 @@ void D_DoomLoop(void)
 			TryRunTics(); // will run at least one tic
 		}
 
-		S_UpdateSounds(
-		    players[consoleplayer].mo); // move positional sounds
+		S_UpdateSounds(players[consoleplayer].mo); // move positional sounds
 
 		// Update display, next frame, with current state.
 		D_Display();
@@ -404,10 +399,7 @@ void D_PageTicker(void)
 //
 // D_PageDrawer
 //
-void D_PageDrawer(void)
-{
-	V_DrawPatch(0, 0, 0, W_CacheLumpName(pagename, PU_CACHE));
-}
+void D_PageDrawer(void) { V_DrawPatch(0, 0, 0, W_CacheLumpName(pagename, PU_CACHE)); }
 
 //
 // D_AdvanceDemo
@@ -727,13 +719,10 @@ void FindResponseFile(void)
 			do
 			{
 				myargv[indexinfile++] = infile + k;
-				while (k < size &&
-				       ((*(infile + k) >= ' ' + 1) &&
-					(*(infile + k) <= 'z')))
+				while (k < size && ((*(infile + k) >= ' ' + 1) && (*(infile + k) <= 'z')))
 					k++;
 				*(infile + k) = 0;
-				while (k < size && ((*(infile + k) <= ' ') ||
-						    (*(infile + k) > 'z')))
+				while (k < size && ((*(infile + k) <= ' ') || (*(infile + k) > 'z')))
 					k++;
 			} while (k < size);
 
@@ -877,18 +866,15 @@ void D_DoomMain(void)
 		case shareware:
 		case retail:
 		case registered:
-			sprintf(file, "~" DEVMAPS "E%cM%c.wad",
-				myargv[p + 1][0], myargv[p + 2][0]);
-			printf("Warping to Episode %s, Map %s.\n",
-			       myargv[p + 1], myargv[p + 2]);
+			sprintf(file, "~" DEVMAPS "E%cM%c.wad", myargv[p + 1][0], myargv[p + 2][0]);
+			printf("Warping to Episode %s, Map %s.\n", myargv[p + 1], myargv[p + 2]);
 			break;
 
 		case commercial:
 		default:
 			p = atoi(myargv[p + 1]);
 			if (p < 10)
-				sprintf(file, "~" DEVMAPS "cdata/map0%i.wad",
-					p);
+				sprintf(file, "~" DEVMAPS "cdata/map0%i.wad", p);
 			else
 				sprintf(file, "~" DEVMAPS "cdata/map%i.wad", p);
 			break;
@@ -986,12 +972,10 @@ void D_DoomMain(void)
 	{
 		// These are the lumps that will be checked in IWAD,
 		// if any one is not present, execution will be aborted.
-		char name[23][8] = {
-		    "e2m1",   "e2m2",	"e2m3",	  "e2m4",   "e2m5",    "e2m6",
-		    "e2m7",   "e2m8",	"e2m9",	  "e3m1",   "e3m3",    "e3m3",
-		    "e3m4",   "e3m5",	"e3m6",	  "e3m7",   "e3m8",    "e3m9",
-		    "dphoof", "bfgga0", "heada1", "cybra1", "spida1d1"};
-		int i;
+		char name[23][8] = {"e2m1", "e2m2", "e2m3",   "e2m4",	"e2m5",	  "e2m6",   "e2m7",    "e2m8",
+				    "e2m9", "e3m1", "e3m3",   "e3m3",	"e3m4",	  "e3m5",   "e3m6",    "e3m7",
+				    "e3m8", "e3m9", "dphoof", "bfgga0", "heada1", "cybra1", "spida1d1"};
+		int  i;
 
 		if (gamemode == shareware)
 			I_Error("\nYou cannot -file with the shareware "
@@ -1037,14 +1021,13 @@ void D_DoomMain(void)
 	case registered:
 	case retail:
 	case commercial:
-		printf(
-		    "=========================================================="
-		    "=================\n"
-		    "                 Commercial product - do not distribute!\n"
-		    "         Please report software piracy to the SPA: "
-		    "1-800-388-PIR8\n"
-		    "=========================================================="
-		    "=================\n");
+		printf("=========================================================="
+		       "=================\n"
+		       "                 Commercial product - do not distribute!\n"
+		       "         Please report software piracy to the SPA: "
+		       "1-800-388-PIR8\n"
+		       "=========================================================="
+		       "=================\n");
 		break;
 
 	default:
@@ -1115,8 +1098,7 @@ void D_DoomMain(void)
 	if (p && p < myargc - 1)
 	{
 		if (M_CheckParm("-cdrom"))
-			sprintf(file, "c:\\doomdata\\" SAVEGAMENAME "%c.dsg",
-				myargv[p + 1][0]);
+			sprintf(file, "c:\\doomdata\\" SAVEGAMENAME "%c.dsg", myargv[p + 1][0]);
 		else
 			sprintf(file, SAVEGAMENAME "%c.dsg", myargv[p + 1][0]);
 		G_LoadGame(file);

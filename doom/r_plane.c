@@ -207,8 +207,7 @@ visplane_t *R_FindPlane(fixed_t height, int picnum, int lightlevel)
 
 	for (check = visplanes; check < lastvisplane; check++)
 	{
-		if (height == check->height && picnum == check->picnum &&
-		    lightlevel == check->lightlevel)
+		if (height == check->height && picnum == check->picnum && lightlevel == check->lightlevel)
 		{
 			break;
 		}
@@ -335,16 +334,13 @@ void R_DrawPlanes(void)
 
 #ifdef RANGECHECK
 	if (ds_p - drawsegs > MAXDRAWSEGS)
-		I_Error("R_DrawPlanes: drawsegs overflow (%i)",
-			ds_p - drawsegs);
+		I_Error("R_DrawPlanes: drawsegs overflow (%i)", ds_p - drawsegs);
 
 	if (lastvisplane - visplanes > MAXVISPLANES)
-		I_Error("R_DrawPlanes: visplane overflow (%i)",
-			lastvisplane - visplanes);
+		I_Error("R_DrawPlanes: visplane overflow (%i)", lastvisplane - visplanes);
 
 	if (lastopening - openings > MAXOPENINGS)
-		I_Error("R_DrawPlanes: opening overflow (%i)",
-			lastopening - openings);
+		I_Error("R_DrawPlanes: opening overflow (%i)", lastopening - openings);
 #endif
 
 	for (pl = visplanes; pl < lastvisplane; pl++)
@@ -370,11 +366,9 @@ void R_DrawPlanes(void)
 
 				if (dc_yl <= dc_yh)
 				{
-					angle = (viewangle + xtoviewangle[x]) >>
-						ANGLETOSKYSHIFT;
-					dc_x = x;
-					dc_source =
-					    R_GetColumn(skytexture, angle);
+					angle	  = (viewangle + xtoviewangle[x]) >> ANGLETOSKYSHIFT;
+					dc_x	  = x;
+					dc_source = R_GetColumn(skytexture, angle);
 					colfunc();
 				}
 			}
@@ -382,8 +376,7 @@ void R_DrawPlanes(void)
 		}
 
 		// regular flat
-		ds_source = W_CacheLumpNum(
-		    firstflat + flattranslation[pl->picnum], PU_STATIC);
+		ds_source = W_CacheLumpNum(firstflat + flattranslation[pl->picnum], PU_STATIC);
 
 		planeheight = abs(pl->height - viewz);
 		light	    = (pl->lightlevel >> LIGHTSEGSHIFT) + extralight;
@@ -403,8 +396,7 @@ void R_DrawPlanes(void)
 
 		for (x = pl->minx; x <= stop; x++)
 		{
-			R_MakeSpans(x, pl->top[x - 1], pl->bottom[x - 1],
-				    pl->top[x], pl->bottom[x]);
+			R_MakeSpans(x, pl->top[x - 1], pl->bottom[x - 1], pl->top[x], pl->bottom[x]);
 		}
 
 		Z_ChangeTag(ds_source, PU_CACHE);

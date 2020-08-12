@@ -20,8 +20,7 @@
 //
 //-----------------------------------------------------------------------------
 
-static const char rcsid[] =
-    "$Id: hu_stuff.c,v 1.4 1997/02/03 16:47:52 b1 Exp $";
+static const char rcsid[] = "$Id: hu_stuff.c,v 1.4 1997/02/03 16:47:52 b1 Exp $";
 
 #include <ctype.h>
 
@@ -60,13 +59,10 @@ static const char rcsid[] =
 #define HU_INPUTWIDTH  64
 #define HU_INPUTHEIGHT 1
 
-char *chat_macros[] = {HUSTR_CHATMACRO0, HUSTR_CHATMACRO1, HUSTR_CHATMACRO2,
-		       HUSTR_CHATMACRO3, HUSTR_CHATMACRO4, HUSTR_CHATMACRO5,
-		       HUSTR_CHATMACRO6, HUSTR_CHATMACRO7, HUSTR_CHATMACRO8,
-		       HUSTR_CHATMACRO9};
+char *chat_macros[] = {HUSTR_CHATMACRO0, HUSTR_CHATMACRO1, HUSTR_CHATMACRO2, HUSTR_CHATMACRO3, HUSTR_CHATMACRO4,
+		       HUSTR_CHATMACRO5, HUSTR_CHATMACRO6, HUSTR_CHATMACRO7, HUSTR_CHATMACRO8, HUSTR_CHATMACRO9};
 
-char *player_names[] = {HUSTR_PLRGREEN, HUSTR_PLRINDIGO, HUSTR_PLRBROWN,
-			HUSTR_PLRRED};
+char *player_names[] = {HUSTR_PLRGREEN, HUSTR_PLRINDIGO, HUSTR_PLRBROWN, HUSTR_PLRRED};
 
 char		     chat_char; // remove later.
 static player_t *    plr;
@@ -98,95 +94,83 @@ static boolean headsupactive = false;
 char *mapnames[] = // DOOM shareware/registered/retail (Ultimate) names.
     {
 
-	HUSTR_E1M1, HUSTR_E1M2, HUSTR_E1M3, HUSTR_E1M4, HUSTR_E1M5,
-	HUSTR_E1M6, HUSTR_E1M7, HUSTR_E1M8, HUSTR_E1M9,
+	HUSTR_E1M1, HUSTR_E1M2, HUSTR_E1M3, HUSTR_E1M4, HUSTR_E1M5, HUSTR_E1M6, HUSTR_E1M7, HUSTR_E1M8, HUSTR_E1M9,
 
-	HUSTR_E2M1, HUSTR_E2M2, HUSTR_E2M3, HUSTR_E2M4, HUSTR_E2M5,
-	HUSTR_E2M6, HUSTR_E2M7, HUSTR_E2M8, HUSTR_E2M9,
+	HUSTR_E2M1, HUSTR_E2M2, HUSTR_E2M3, HUSTR_E2M4, HUSTR_E2M5, HUSTR_E2M6, HUSTR_E2M7, HUSTR_E2M8, HUSTR_E2M9,
 
-	HUSTR_E3M1, HUSTR_E3M2, HUSTR_E3M3, HUSTR_E3M4, HUSTR_E3M5,
-	HUSTR_E3M6, HUSTR_E3M7, HUSTR_E3M8, HUSTR_E3M9,
+	HUSTR_E3M1, HUSTR_E3M2, HUSTR_E3M3, HUSTR_E3M4, HUSTR_E3M5, HUSTR_E3M6, HUSTR_E3M7, HUSTR_E3M8, HUSTR_E3M9,
 
-	HUSTR_E4M1, HUSTR_E4M2, HUSTR_E4M3, HUSTR_E4M4, HUSTR_E4M5,
-	HUSTR_E4M6, HUSTR_E4M7, HUSTR_E4M8, HUSTR_E4M9,
+	HUSTR_E4M1, HUSTR_E4M2, HUSTR_E4M3, HUSTR_E4M4, HUSTR_E4M5, HUSTR_E4M6, HUSTR_E4M7, HUSTR_E4M8, HUSTR_E4M9,
 
-	"NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL",
-	"NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL"};
+	"NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL", "NEWLEVEL"};
 
 char *mapnames2[] = // DOOM 2 map names.
-    {HUSTR_1,  HUSTR_2,	 HUSTR_3,  HUSTR_4,  HUSTR_5,  HUSTR_6,
-     HUSTR_7,  HUSTR_8,	 HUSTR_9,  HUSTR_10, HUSTR_11,
+    {HUSTR_1,  HUSTR_2,	 HUSTR_3,  HUSTR_4,  HUSTR_5,  HUSTR_6,	 HUSTR_7,  HUSTR_8,  HUSTR_9,  HUSTR_10, HUSTR_11,
 
-     HUSTR_12, HUSTR_13, HUSTR_14, HUSTR_15, HUSTR_16, HUSTR_17,
-     HUSTR_18, HUSTR_19, HUSTR_20,
+     HUSTR_12, HUSTR_13, HUSTR_14, HUSTR_15, HUSTR_16, HUSTR_17, HUSTR_18, HUSTR_19, HUSTR_20,
 
-     HUSTR_21, HUSTR_22, HUSTR_23, HUSTR_24, HUSTR_25, HUSTR_26,
-     HUSTR_27, HUSTR_28, HUSTR_29, HUSTR_30, HUSTR_31, HUSTR_32};
+     HUSTR_21, HUSTR_22, HUSTR_23, HUSTR_24, HUSTR_25, HUSTR_26, HUSTR_27, HUSTR_28, HUSTR_29, HUSTR_30, HUSTR_31,
+     HUSTR_32};
 
 char *mapnamesp[] = // Plutonia WAD map names.
-    {PHUSTR_1,	PHUSTR_2,  PHUSTR_3,  PHUSTR_4,	 PHUSTR_5,  PHUSTR_6,
-     PHUSTR_7,	PHUSTR_8,  PHUSTR_9,  PHUSTR_10, PHUSTR_11,
+    {PHUSTR_1,	PHUSTR_2,  PHUSTR_3,  PHUSTR_4,	 PHUSTR_5,  PHUSTR_6,  PHUSTR_7,  PHUSTR_8,  PHUSTR_9,
+     PHUSTR_10, PHUSTR_11,
 
-     PHUSTR_12, PHUSTR_13, PHUSTR_14, PHUSTR_15, PHUSTR_16, PHUSTR_17,
-     PHUSTR_18, PHUSTR_19, PHUSTR_20,
+     PHUSTR_12, PHUSTR_13, PHUSTR_14, PHUSTR_15, PHUSTR_16, PHUSTR_17, PHUSTR_18, PHUSTR_19, PHUSTR_20,
 
-     PHUSTR_21, PHUSTR_22, PHUSTR_23, PHUSTR_24, PHUSTR_25, PHUSTR_26,
-     PHUSTR_27, PHUSTR_28, PHUSTR_29, PHUSTR_30, PHUSTR_31, PHUSTR_32};
+     PHUSTR_21, PHUSTR_22, PHUSTR_23, PHUSTR_24, PHUSTR_25, PHUSTR_26, PHUSTR_27, PHUSTR_28, PHUSTR_29,
+     PHUSTR_30, PHUSTR_31, PHUSTR_32};
 
 char *mapnamest[] = // TNT WAD map names.
-    {THUSTR_1,	THUSTR_2,  THUSTR_3,  THUSTR_4,	 THUSTR_5,  THUSTR_6,
-     THUSTR_7,	THUSTR_8,  THUSTR_9,  THUSTR_10, THUSTR_11,
+    {THUSTR_1,	THUSTR_2,  THUSTR_3,  THUSTR_4,	 THUSTR_5,  THUSTR_6,  THUSTR_7,  THUSTR_8,  THUSTR_9,
+     THUSTR_10, THUSTR_11,
 
-     THUSTR_12, THUSTR_13, THUSTR_14, THUSTR_15, THUSTR_16, THUSTR_17,
-     THUSTR_18, THUSTR_19, THUSTR_20,
+     THUSTR_12, THUSTR_13, THUSTR_14, THUSTR_15, THUSTR_16, THUSTR_17, THUSTR_18, THUSTR_19, THUSTR_20,
 
-     THUSTR_21, THUSTR_22, THUSTR_23, THUSTR_24, THUSTR_25, THUSTR_26,
-     THUSTR_27, THUSTR_28, THUSTR_29, THUSTR_30, THUSTR_31, THUSTR_32};
+     THUSTR_21, THUSTR_22, THUSTR_23, THUSTR_24, THUSTR_25, THUSTR_26, THUSTR_27, THUSTR_28, THUSTR_29,
+     THUSTR_30, THUSTR_31, THUSTR_32};
 
 const char *shiftxform;
 
-const char french_shiftxform[] = {
-    0,	  1,   2,   3,	 4,   5,   6,	7,   8,	  9,   10,  11,	 12,  13,  14,
-    15,	  16,  17,  18,	 19,  20,  21,	22,  23,  24,  25,  26,	 27,  28,  29,
-    30,	  31,  ' ', '!', '"', '#', '$', '%', '&',
-    '"', // shift-'
-    '(',  ')', '*', '+',
-    '?', // shift-,
-    '_', // shift--
-    '>', // shift-.
-    '?', // shift-/
-    '0', // shift-0
-    '1', // shift-1
-    '2', // shift-2
-    '3', // shift-3
-    '4', // shift-4
-    '5', // shift-5
-    '6', // shift-6
-    '7', // shift-7
-    '8', // shift-8
-    '9', // shift-9
-    '/',
-    '.', // shift-;
-    '<',
-    '+', // shift-=
-    '>',  '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-    'M',  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    '[', // shift-[
-    '!', // shift-backslash - OH MY GOD DOES WATCOM SUCK
-    ']', // shift-]
-    '"',  '_',
-    '\'', // shift-`
-    'A',  'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-    'P',  'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '{', '|', '}', '~',
-    127
+const char french_shiftxform[] = {0,	1,   2,	  3,   4,   5,	 6,   7,   8,	9,   10,  11,  12,  13,	 14,  15,
+				  16,	17,  18,  19,  20,  21,	 22,  23,  24,	25,  26,  27,  28,  29,	 30,  31,
+				  ' ',	'!', '"', '#', '$', '%', '&',
+				  '"', // shift-'
+				  '(',	')', '*', '+',
+				  '?', // shift-,
+				  '_', // shift--
+				  '>', // shift-.
+				  '?', // shift-/
+				  '0', // shift-0
+				  '1', // shift-1
+				  '2', // shift-2
+				  '3', // shift-3
+				  '4', // shift-4
+				  '5', // shift-5
+				  '6', // shift-6
+				  '7', // shift-7
+				  '8', // shift-8
+				  '9', // shift-9
+				  '/',
+				  '.', // shift-;
+				  '<',
+				  '+', // shift-=
+				  '>',	'?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+				  'N',	'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+				  '[', // shift-[
+				  '!', // shift-backslash - OH MY GOD DOES WATCOM SUCK
+				  ']', // shift-]
+				  '"',	'_',
+				  '\'', // shift-`
+				  'A',	'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+				  'Q',	'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '{', '|', '}', '~', 127
 
 };
 
 const char english_shiftxform[] = {
 
-    0,	  1,   2,   3,	 4,   5,   6,	7,   8,	  9,   10,  11,	 12,  13,  14,
-    15,	  16,  17,  18,	 19,  20,  21,	22,  23,  24,  25,  26,	 27,  28,  29,
-    30,	  31,  ' ', '!', '"', '#', '$', '%', '&',
+    0,	  1,   2,   3,	 4,   5,   6,	7,   8,	  9,   10,  11,	 12,  13,  14,	15,  16,  17,  18,  19,
+    20,	  21,  22,  23,	 24,  25,  26,	27,  28,  29,  30,  31,	 ' ', '!', '"', '#', '$', '%', '&',
     '"', // shift-'
     '(',  ')', '*', '+',
     '<', // shift-,
@@ -207,32 +191,25 @@ const char english_shiftxform[] = {
     ':', // shift-;
     '<',
     '+', // shift-=
-    '>',  '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-    'M',  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    '>',  '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+    'R',  'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     '[', // shift-[
     '!', // shift-backslash - OH MY GOD DOES WATCOM SUCK
     ']', // shift-]
     '"',  '_',
     '\'', // shift-`
-    'A',  'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-    'P',  'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '{', '|', '}', '~',
-    127};
+    'A',  'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+    'U',  'V', 'W', 'X', 'Y', 'Z', '{', '|', '}', '~', 127};
 
 char frenchKeyMap[128] = {
-    0,	 1,   2,    3,	 4,    5,   6,	 7,   8,   9,	10,  11,  12,  13,  14,
-    15,	 16,  17,   18,	 19,   20,  21,	 22,  23,  24,	25,  26,  27,  28,  29,
-    30,	 31,  ' ',  '!', '"',  '#', '$', '%', '&', '%', '(', ')', '*', '+', ';',
-    '-', ':', '!',  '0', '1',  '2', '3', '4', '5', '6', '7', '8', '9', ':', 'M',
-    '<', '=', '>',  '?', '@',  'Q', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-    'K', 'L', ',',  'N', 'O',  'P', 'A', 'R', 'S', 'T', 'U', 'V', 'Z', 'X', 'Y',
-    'W', '^', '\\', '$', '^',  '_', '@', 'Q', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-    'I', 'J', 'K',  'L', ',',  'N', 'O', 'P', 'A', 'R', 'S', 'T', 'U', 'V', 'Z',
-    'X', 'Y', 'W',  '^', '\\', '$', '^', 127};
+    0,	 1,   2,   3,	4,    5,   6,	7,   8,	  9,   10,  11,	 12,  13,  14,	 15,  16,  17,	18,  19,  20,  21,
+    22,	 23,  24,  25,	26,   27,  28,	29,  30,  31,  ' ', '!', '"', '#', '$',	 '%', '&', '%', '(', ')', '*', '+',
+    ';', '-', ':', '!', '0',  '1', '2', '3', '4', '5', '6', '7', '8', '9', ':',	 'M', '<', '=', '>', '?', '@', 'Q',
+    'B', 'C', 'D', 'E', 'F',  'G', 'H', 'I', 'J', 'K', 'L', ',', 'N', 'O', 'P',	 'A', 'R', 'S', 'T', 'U', 'V', 'Z',
+    'X', 'Y', 'W', '^', '\\', '$', '^', '_', '@', 'Q', 'B', 'C', 'D', 'E', 'F',	 'G', 'H', 'I', 'J', 'K', 'L', ',',
+    'N', 'O', 'P', 'A', 'R',  'S', 'T', 'U', 'V', 'Z', 'X', 'Y', 'W', '^', '\\', '$', '^', 127};
 
-char ForeignTranslation(unsigned char ch)
-{
-	return ch < 128 ? frenchKeyMap[ch] : ch;
-}
+char ForeignTranslation(unsigned char ch) { return ch < 128 ? frenchKeyMap[ch] : ch; }
 
 void HU_Init(void)
 {
@@ -273,12 +250,10 @@ void HU_Start(void)
 	chat_on			  = false;
 
 	// create the message widget
-	HUlib_initSText(&w_message, HU_MSGX, HU_MSGY, HU_MSGHEIGHT, hu_font,
-			HU_FONTSTART, &message_on);
+	HUlib_initSText(&w_message, HU_MSGX, HU_MSGY, HU_MSGHEIGHT, hu_font, HU_FONTSTART, &message_on);
 
 	// create the map title widget
-	HUlib_initTextLine(&w_title, HU_TITLEX, HU_TITLEY, hu_font,
-			   HU_FONTSTART);
+	HUlib_initTextLine(&w_title, HU_TITLEX, HU_TITLEY, hu_font, HU_FONTSTART);
 
 	switch (gamemode)
 	{
@@ -307,8 +282,7 @@ void HU_Start(void)
 		HUlib_addCharToTextLine(&w_title, *(s++));
 
 	// create the chat widget
-	HUlib_initIText(&w_chat, HU_INPUTX, HU_INPUTY, hu_font, HU_FONTSTART,
-			&chat_on);
+	HUlib_initIText(&w_chat, HU_INPUTX, HU_INPUTY, hu_font, HU_FONTSTART, &chat_on);
 
 	// create the inputbuffer widgets
 	for (i = 0; i < MAXPLAYERS; i++)
@@ -351,8 +325,7 @@ void HU_Ticker(void)
 	{
 
 		// display message if necessary
-		if ((plr->message && !message_nottobefuckedwith) ||
-		    (plr->message && message_dontfuckwithme))
+		if ((plr->message && !message_nottobefuckedwith) || (plr->message && message_dontfuckwithme))
 		{
 			HUlib_addMessageToSText(&w_message, 0, plr->message);
 			plr->message		  = 0;
@@ -378,41 +351,25 @@ void HU_Ticker(void)
 				else
 				{
 					if (c >= 'a' && c <= 'z')
-						c = (char)shiftxform[(
-						    unsigned char)c];
-					rc = HUlib_keyInIText(&w_inputbuffer[i],
-							      c);
+						c = (char)shiftxform[(unsigned char)c];
+					rc = HUlib_keyInIText(&w_inputbuffer[i], c);
 					if (rc && c == KEY_ENTER)
 					{
 						if (w_inputbuffer[i].l.len &&
-						    (chat_dest[i] ==
-							 consoleplayer + 1 ||
-						     chat_dest[i] ==
-							 HU_BROADCAST))
+						    (chat_dest[i] == consoleplayer + 1 || chat_dest[i] == HU_BROADCAST))
 						{
-							HUlib_addMessageToSText(
-							    &w_message,
-							    player_names[i],
-							    w_inputbuffer[i]
-								.l.l);
+							HUlib_addMessageToSText(&w_message, player_names[i],
+										w_inputbuffer[i].l.l);
 
-							message_nottobefuckedwith =
-							    true;
-							message_on = true;
-							message_counter =
-							    HU_MSGTIMEOUT;
-							if (gamemode ==
-							    commercial)
-								S_StartSound(
-								    0,
-								    sfx_radio);
+							message_nottobefuckedwith = true;
+							message_on		  = true;
+							message_counter		  = HU_MSGTIMEOUT;
+							if (gamemode == commercial)
+								S_StartSound(0, sfx_radio);
 							else
-								S_StartSound(
-								    0,
-								    sfx_tink);
+								S_StartSound(0, sfx_tink);
 						}
-						HUlib_resetIText(
-						    &w_inputbuffer[i]);
+						HUlib_resetIText(&w_inputbuffer[i]);
 					}
 				}
 				players[i].cmd.chatchar = 0;
@@ -469,8 +426,7 @@ boolean HU_Responder(event_t *ev)
 	int	       i;
 	int	       numplayers;
 
-	static char destination_keys[MAXPLAYERS] = {
-	    HUSTR_KEYGREEN, HUSTR_KEYINDIGO, HUSTR_KEYBROWN, HUSTR_KEYRED};
+	static char destination_keys[MAXPLAYERS] = {HUSTR_KEYGREEN, HUSTR_KEYINDIGO, HUSTR_KEYBROWN, HUSTR_KEYRED};
 
 	static int num_nobrainers = 0;
 
@@ -512,8 +468,7 @@ boolean HU_Responder(event_t *ev)
 			{
 				if (ev->data1 == destination_keys[i])
 				{
-					if (playeringame[i] &&
-					    i != consoleplayer)
+					if (playeringame[i] && i != consoleplayer)
 					{
 						eatkey = chat_on = true;
 						HUlib_resetIText(&w_chat);
@@ -524,20 +479,15 @@ boolean HU_Responder(event_t *ev)
 					{
 						num_nobrainers++;
 						if (num_nobrainers < 3)
-							plr->message =
-							    HUSTR_TALKTOSELF1;
+							plr->message = HUSTR_TALKTOSELF1;
 						else if (num_nobrainers < 6)
-							plr->message =
-							    HUSTR_TALKTOSELF2;
+							plr->message = HUSTR_TALKTOSELF2;
 						else if (num_nobrainers < 9)
-							plr->message =
-							    HUSTR_TALKTOSELF3;
+							plr->message = HUSTR_TALKTOSELF3;
 						else if (num_nobrainers < 32)
-							plr->message =
-							    HUSTR_TALKTOSELF4;
+							plr->message = HUSTR_TALKTOSELF4;
 						else
-							plr->message =
-							    HUSTR_TALKTOSELF5;
+							plr->message = HUSTR_TALKTOSELF5;
 					}
 				}
 			}

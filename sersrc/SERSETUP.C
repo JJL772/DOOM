@@ -73,11 +73,9 @@ void Error(char *error, ...)
 		printf("\n");
 		printf("\n" STR_DROPDTR "\n");
 
-		OUTPUT(uart + MODEM_CONTROL_REGISTER,
-		       INPUT(uart + MODEM_CONTROL_REGISTER) & ~MCR_DTR);
+		OUTPUT(uart + MODEM_CONTROL_REGISTER, INPUT(uart + MODEM_CONTROL_REGISTER) & ~MCR_DTR);
 		delay(1250);
-		OUTPUT(uart + MODEM_CONTROL_REGISTER,
-		       INPUT(uart + MODEM_CONTROL_REGISTER) | MCR_DTR);
+		OUTPUT(uart + MODEM_CONTROL_REGISTER, INPUT(uart + MODEM_CONTROL_REGISTER) | MCR_DTR);
 		ModemCommand("+++");
 		delay(1250);
 		ModemCommand(shutdown);
@@ -538,8 +536,7 @@ void FindResponseFile(void)
 			handle = fopen(&myargv[i][1], "rb");
 			if (!handle)
 				I_Error(STR_NORESP);
-			printf("Found response file \"%s\"!\n",
-			       strupr(&myargv[i][1]));
+			printf("Found response file \"%s\"!\n", strupr(&myargv[i][1]));
 			fseek(handle, 0, SEEK_END);
 			size = ftell(handle);
 			fseek(handle, 0, SEEK_SET);
@@ -562,13 +559,10 @@ void FindResponseFile(void)
 			do
 			{
 				myargv[indexinfile++] = infile + k;
-				while (k < size &&
-				       ((*(infile + k) >= ' ' + 1) &&
-					(*(infile + k) <= 'z')))
+				while (k < size && ((*(infile + k) >= ' ' + 1) && (*(infile + k) <= 'z')))
 					k++;
 				*(infile + k) = 0;
-				while (k < size && ((*(infile + k) <= ' ') ||
-						    (*(infile + k) > 'z')))
+				while (k < size && ((*(infile + k) <= ' ') || (*(infile + k) > 'z')))
 					k++;
 			} while (k < size);
 

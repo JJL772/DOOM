@@ -79,8 +79,7 @@ void LaunchDOOM(void)
 	}
 	else
 	{
-		for (doomcom.intnum = 0x60; doomcom.intnum <= 0x66;
-		     doomcom.intnum++)
+		for (doomcom.intnum = 0x60; doomcom.intnum <= 0x66; doomcom.intnum++)
 		{
 			vector = *(char far *far *)(doomcom.intnum * 4);
 			if (!vector || *vector == 0xcf)

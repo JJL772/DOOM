@@ -96,11 +96,7 @@ void **lumpcache;
 #define LONG(x)	 ((long)SwapLONG((unsigned long)(x)))
 #define SHORT(x) ((short)SwapSHORT((unsigned short)(x)))
 
-unsigned long SwapLONG(unsigned long x)
-{
-	return (x >> 24) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000) |
-	       (x << 24);
-}
+unsigned long SwapLONG(unsigned long x) { return (x >> 24) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000) | (x << 24); }
 
 unsigned short SwapSHORT(unsigned short x) { return (x >> 8) | (x << 8); }
 
@@ -156,8 +152,7 @@ void openwad(char *wadname)
 	tablelength	= numlumps * sizeof(lumpinfo_t);
 	tablefilelength = numlumps * sizeof(filelump_t);
 	lumpinfo	= (lumpinfo_t *)malloc(tablelength);
-	filetable =
-	    (filelump_t *)((char *)lumpinfo + tablelength - tablefilelength);
+	filetable	= (filelump_t *)((char *)lumpinfo + tablelength - tablefilelength);
 
 	// get the lumpinfo table
 	lseek(wadfile, tableoffset, SEEK_SET);
@@ -218,9 +213,8 @@ void *getsfx(char *sfxname, int *len)
 	sfx = (unsigned char *)loadlump(name, &size);
 
 	// pad the sound effect out to the mixing buffer size
-	paddedsize =
-	    ((size - 8 + (SAMPLECOUNT - 1)) / SAMPLECOUNT) * SAMPLECOUNT;
-	paddedsfx = (unsigned char *)realloc(sfx, paddedsize + 8);
+	paddedsize = ((size - 8 + (SAMPLECOUNT - 1)) / SAMPLECOUNT) * SAMPLECOUNT;
+	paddedsfx  = (unsigned char *)realloc(sfx, paddedsize + 8);
 	for (i = size; i < paddedsize + 8; i++)
 		paddedsfx[i] = 128;
 

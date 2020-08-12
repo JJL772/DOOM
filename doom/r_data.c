@@ -167,8 +167,7 @@ lighttable_t *colormaps;
 // Clip and draw a column
 //  from a patch into a cached post.
 //
-void R_DrawColumnInCache(column_t *patch, byte *cache, int originy,
-			 int cacheheight)
+void R_DrawColumnInCache(column_t *patch, byte *cache, int originy, int cacheheight)
 {
 	int   count;
 	int   position;
@@ -221,8 +220,7 @@ void R_GenerateComposite(int texnum)
 
 	texture = textures[texnum];
 
-	block = Z_Malloc(texturecompositesize[texnum], PU_STATIC,
-			 &texturecomposite[texnum]);
+	block = Z_Malloc(texturecompositesize[texnum], PU_STATIC, &texturecomposite[texnum]);
 
 	collump = texturecolumnlump[texnum];
 	colofs	= texturecolumnofs[texnum];
@@ -230,8 +228,7 @@ void R_GenerateComposite(int texnum)
 	// Composite the columns together.
 	patch = texture->patches;
 
-	for (i = 0, patch = texture->patches; i < texture->patchcount;
-	     i++, patch++)
+	for (i = 0, patch = texture->patches; i < texture->patchcount; i++, patch++)
 	{
 		realpatch = W_CacheLumpNum(patch->patch, PU_CACHE);
 		x1	  = patch->originx;
@@ -251,11 +248,8 @@ void R_GenerateComposite(int texnum)
 			if (collump[x] >= 0)
 				continue;
 
-			patchcol =
-			    (column_t *)((byte *)realpatch +
-					 LONG(realpatch->columnofs[x - x1]));
-			R_DrawColumnInCache(patchcol, block + colofs[x],
-					    patch->originy, texture->height);
+			patchcol = (column_t *)((byte *)realpatch + LONG(realpatch->columnofs[x - x1]));
+			R_DrawColumnInCache(patchcol, block + colofs[x], patch->originy, texture->height);
 		}
 	}
 
@@ -297,8 +291,7 @@ void R_GenerateLookup(int texnum)
 	memset(patchcount, 0, texture->width);
 	patch = texture->patches;
 
-	for (i = 0, patch = texture->patches; i < texture->patchcount;
-	     i++, patch++)
+	for (i = 0, patch = texture->patches; i < texture->patchcount; i++, patch++)
 	{
 		realpatch = W_CacheLumpNum(patch->patch, PU_CACHE);
 		x1	  = patch->originx;
@@ -323,9 +316,7 @@ void R_GenerateLookup(int texnum)
 	{
 		if (!patchcount[x])
 		{
-			printf(
-			    "R_GenerateLookup: column without a patch (%s)\n",
-			    texture->name);
+			printf("R_GenerateLookup: column without a patch (%s)\n", texture->name);
 			return;
 		}
 		// I_Error ("R_GenerateLookup: column without a patch");
@@ -336,11 +327,9 @@ void R_GenerateLookup(int texnum)
 			collump[x] = -1;
 			colofs[x]  = texturecompositesize[texnum];
 
-			if (texturecompositesize[texnum] >
-			    0x10000 - texture->height)
+			if (texturecompositesize[texnum] > 0x10000 - texture->height)
 			{
-				I_Error("R_GenerateLookup: texture %i is >64k",
-					texnum);
+				I_Error("R_GenerateLookup: texture %i is >64k", texnum);
 			}
 
 			texturecompositesize[texnum] += texture->height;
@@ -486,10 +475,8 @@ void R_InitTextures(void)
 
 		mtexture = (maptexture_t *)((byte *)maptex + offset);
 
-		texture = textures[i] = Z_Malloc(
-		    sizeof(texture_t) +
-			sizeof(texpatch_t) * (SHORT(mtexture->patchcount) - 1),
-		    PU_STATIC, 0);
+		texture = textures[i] =
+		    Z_Malloc(sizeof(texture_t) + sizeof(texpatch_t) * (SHORT(mtexture->patchcount) - 1), PU_STATIC, 0);
 
 		texture->width	    = SHORT(mtexture->width);
 		texture->height	    = SHORT(mtexture->height);
@@ -511,10 +498,8 @@ void R_InitTextures(void)
 					texture->name);
 			}
 		}
-		texturecolumnlump[i] =
-		    Z_Malloc(texture->width * 2, PU_STATIC, 0);
-		texturecolumnofs[i] =
-		    Z_Malloc(texture->width * 2, PU_STATIC, 0);
+		texturecolumnlump[i] = Z_Malloc(texture->width * 2, PU_STATIC, 0);
+		texturecolumnofs[i]  = Z_Malloc(texture->width * 2, PU_STATIC, 0);
 
 		j = 1;
 		while (j * 2 <= texture->width)
@@ -583,9 +568,9 @@ void R_InitSpriteLumps(void)
 		if (!(i & 63))
 			printf(".");
 
-		patch		= W_CacheLumpNum(firstspritelump + i, PU_CACHE);
-		spritewidth[i]	= SHORT(patch->width) << FRACBITS;
-		spriteoffset[i] = SHORT(patch->leftoffset) << FRACBITS;
+		patch		   = W_CacheLumpNum(firstspritelump + i, PU_CACHE);
+		spritewidth[i]	   = SHORT(patch->width) << FRACBITS;
+		spriteoffset[i]	   = SHORT(patch->leftoffset) << FRACBITS;
 		spritetopoffset[i] = SHORT(patch->topoffset) << FRACBITS;
 	}
 }

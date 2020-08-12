@@ -229,8 +229,7 @@ void R_DrawColumnLow(void)
 	do
 	{
 		// Hack. Does not work corretly.
-		*dest2 = *dest =
-		    dc_colormap[dc_source[(frac >> FRACBITS) & 127]];
+		*dest2 = *dest = dc_colormap[dc_source[(frac >> FRACBITS) & 127]];
 		dest += SCREENWIDTH;
 		dest2 += SCREENWIDTH;
 		frac += fracstep;
@@ -244,15 +243,12 @@ void R_DrawColumnLow(void)
 #define FUZZTABLE 50
 #define FUZZOFF	  (SCREENWIDTH)
 
-int fuzzoffset[FUZZTABLE] = {
-    FUZZOFF,  -FUZZOFF, FUZZOFF,  -FUZZOFF, FUZZOFF,  FUZZOFF,	-FUZZOFF,
-    FUZZOFF,  FUZZOFF,	-FUZZOFF, FUZZOFF,  FUZZOFF,  FUZZOFF,	-FUZZOFF,
-    FUZZOFF,  FUZZOFF,	FUZZOFF,  -FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF,
-    FUZZOFF,  -FUZZOFF, -FUZZOFF, FUZZOFF,  FUZZOFF,  FUZZOFF,	FUZZOFF,
-    -FUZZOFF, FUZZOFF,	-FUZZOFF, FUZZOFF,  FUZZOFF,  -FUZZOFF, -FUZZOFF,
-    FUZZOFF,  FUZZOFF,	-FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF,
-    FUZZOFF,  FUZZOFF,	FUZZOFF,  -FUZZOFF, FUZZOFF,  FUZZOFF,	-FUZZOFF,
-    FUZZOFF};
+int fuzzoffset[FUZZTABLE] = {FUZZOFF,  -FUZZOFF, FUZZOFF,  -FUZZOFF, FUZZOFF,  FUZZOFF,	 -FUZZOFF, FUZZOFF,  FUZZOFF,
+			     -FUZZOFF, FUZZOFF,	 FUZZOFF,  FUZZOFF,  -FUZZOFF, FUZZOFF,	 FUZZOFF,  FUZZOFF,  -FUZZOFF,
+			     -FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF,  -FUZZOFF, -FUZZOFF, FUZZOFF,  FUZZOFF,  FUZZOFF,
+			     FUZZOFF,  -FUZZOFF, FUZZOFF,  -FUZZOFF, FUZZOFF,  FUZZOFF,	 -FUZZOFF, -FUZZOFF, FUZZOFF,
+			     FUZZOFF,  -FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF,	 FUZZOFF,  FUZZOFF,  FUZZOFF,
+			     -FUZZOFF, FUZZOFF,	 FUZZOFF,  -FUZZOFF, FUZZOFF};
 
 int fuzzpos = 0;
 
@@ -408,8 +404,7 @@ void R_DrawTranslatedColumn(void)
 		//  used with PLAY sprites.
 		// Thus the "green" ramp of the player 0 sprite
 		//  is mapped to gray, red, black/indigo.
-		*dest =
-		    dc_colormap[dc_translation[dc_source[frac >> FRACBITS]]];
+		*dest = dc_colormap[dc_translation[dc_source[frac >> FRACBITS]]];
 		dest += SCREENWIDTH;
 
 		frac += fracstep;
@@ -443,8 +438,7 @@ void R_InitTranslationTables(void)
 		else
 		{
 			// Keep all other colors as is.
-			translationtables[i] = translationtables[i + 256] =
-			    translationtables[i + 512] = i;
+			translationtables[i] = translationtables[i + 256] = translationtables[i + 512] = i;
 		}
 	}
 }
@@ -489,8 +483,7 @@ void R_DrawSpan(void)
 	int	spot;
 
 #ifdef RANGECHECK
-	if (ds_x2 < ds_x1 || ds_x1 < 0 || ds_x2 >= SCREENWIDTH ||
-	    (unsigned)ds_y > SCREENHEIGHT)
+	if (ds_x2 < ds_x1 || ds_x1 < 0 || ds_x2 >= SCREENWIDTH || (unsigned)ds_y > SCREENHEIGHT)
 	{
 		I_Error("R_DrawSpan: %i to %i at %i", ds_x1, ds_x2, ds_y);
 	}
@@ -605,8 +598,7 @@ void R_DrawSpanLow(void)
 	int	spot;
 
 #ifdef RANGECHECK
-	if (ds_x2 < ds_x1 || ds_x1 < 0 || ds_x2 >= SCREENWIDTH ||
-	    (unsigned)ds_y > SCREENHEIGHT)
+	if (ds_x2 < ds_x1 || ds_x1 < 0 || ds_x2 >= SCREENWIDTH || (unsigned)ds_y > SCREENHEIGHT)
 	{
 		I_Error("R_DrawSpan: %i to %i at %i", ds_x1, ds_x2, ds_y);
 	}
@@ -723,8 +715,7 @@ void R_FillBackScreen(void)
 	patch = W_CacheLumpName("brdr_b", PU_CACHE);
 
 	for (x = 0; x < scaledviewwidth; x += 8)
-		V_DrawPatch(viewwindowx + x, viewwindowy + viewheight, 1,
-			    patch);
+		V_DrawPatch(viewwindowx + x, viewwindowy + viewheight, 1, patch);
 	patch = W_CacheLumpName("brdr_l", PU_CACHE);
 
 	for (y = 0; y < viewheight; y += 8)
@@ -732,21 +723,16 @@ void R_FillBackScreen(void)
 	patch = W_CacheLumpName("brdr_r", PU_CACHE);
 
 	for (y = 0; y < viewheight; y += 8)
-		V_DrawPatch(viewwindowx + scaledviewwidth, viewwindowy + y, 1,
-			    patch);
+		V_DrawPatch(viewwindowx + scaledviewwidth, viewwindowy + y, 1, patch);
 
 	// Draw beveled edge.
-	V_DrawPatch(viewwindowx - 8, viewwindowy - 8, 1,
-		    W_CacheLumpName("brdr_tl", PU_CACHE));
+	V_DrawPatch(viewwindowx - 8, viewwindowy - 8, 1, W_CacheLumpName("brdr_tl", PU_CACHE));
 
-	V_DrawPatch(viewwindowx + scaledviewwidth, viewwindowy - 8, 1,
-		    W_CacheLumpName("brdr_tr", PU_CACHE));
+	V_DrawPatch(viewwindowx + scaledviewwidth, viewwindowy - 8, 1, W_CacheLumpName("brdr_tr", PU_CACHE));
 
-	V_DrawPatch(viewwindowx - 8, viewwindowy + viewheight, 1,
-		    W_CacheLumpName("brdr_bl", PU_CACHE));
+	V_DrawPatch(viewwindowx - 8, viewwindowy + viewheight, 1, W_CacheLumpName("brdr_bl", PU_CACHE));
 
-	V_DrawPatch(viewwindowx + scaledviewwidth, viewwindowy + viewheight, 1,
-		    W_CacheLumpName("brdr_br", PU_CACHE));
+	V_DrawPatch(viewwindowx + scaledviewwidth, viewwindowy + viewheight, 1, W_CacheLumpName("brdr_br", PU_CACHE));
 }
 
 //

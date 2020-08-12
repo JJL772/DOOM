@@ -62,9 +62,8 @@ typedef enum
 //
 // P_NewChaseDir related LUT.
 //
-dirtype_t opposite[] = {DI_WEST,      DI_SOUTHWEST, DI_SOUTH,
-			DI_SOUTHEAST, DI_EAST,	    DI_NORTHEAST,
-			DI_NORTH,     DI_NORTHWEST, DI_NODIR};
+dirtype_t opposite[] = {DI_WEST,      DI_SOUTHWEST, DI_SOUTH,	  DI_SOUTHEAST, DI_EAST,
+			DI_NORTHEAST, DI_NORTH,	    DI_NORTHWEST, DI_NODIR};
 
 dirtype_t diags[] = {DI_NORTHWEST, DI_NORTHEAST, DI_SOUTHWEST, DI_SOUTHEAST};
 
@@ -93,8 +92,7 @@ void P_RecursiveSound(sector_t *sec, int soundblocks)
 	sector_t *other;
 
 	// wake up all monsters in this sector
-	if (sec->validcount == validcount &&
-	    sec->soundtraversed <= soundblocks + 1)
+	if (sec->validcount == validcount && sec->soundtraversed <= soundblocks + 1)
 	{
 		return; // already flooded
 	}
@@ -186,9 +184,7 @@ boolean P_CheckMissileRange(mobj_t *actor)
 		return false; // do not attack yet
 
 	// OPTIMIZE: get this from a global checksight
-	dist = P_AproxDistance(actor->x - actor->target->x,
-			       actor->y - actor->target->y) -
-	       64 * FRACUNIT;
+	dist = P_AproxDistance(actor->x - actor->target->x, actor->y - actor->target->y) - 64 * FRACUNIT;
 
 	if (!actor->info->meleestate)
 		dist -= 128 * FRACUNIT; // no melee attack, so fire more
@@ -208,8 +204,7 @@ boolean P_CheckMissileRange(mobj_t *actor)
 		dist >>= 1;
 	}
 
-	if (actor->type == MT_CYBORG || actor->type == MT_SPIDER ||
-	    actor->type == MT_SKULL)
+	if (actor->type == MT_CYBORG || actor->type == MT_SPIDER || actor->type == MT_SKULL)
 	{
 		dist >>= 1;
 	}
@@ -487,15 +482,11 @@ boolean P_LookForPlayers(mobj_t *actor, boolean allaround)
 
 		if (!allaround)
 		{
-			an = R_PointToAngle2(actor->x, actor->y, player->mo->x,
-					     player->mo->y) -
-			     actor->angle;
+			an = R_PointToAngle2(actor->x, actor->y, player->mo->x, player->mo->y) - actor->angle;
 
 			if (an > ANG90 && an < ANG270)
 			{
-				dist =
-				    P_AproxDistance(player->mo->x - actor->x,
-						    player->mo->y - actor->y);
+				dist = P_AproxDistance(player->mo->x - actor->x, player->mo->y - actor->y);
 				// if real close, react anyway
 				if (dist > MELEERANGE)
 					continue; // behind back
@@ -720,8 +711,7 @@ void A_FaceTarget(mobj_t *actor)
 
 	actor->flags &= ~MF_AMBUSH;
 
-	actor->angle = R_PointToAngle2(actor->x, actor->y, actor->target->x,
-				       actor->target->y);
+	actor->angle = R_PointToAngle2(actor->x, actor->y, actor->target->x, actor->target->y);
 
 	if (actor->target->flags & MF_SHADOW)
 		actor->angle += (P_Random() - P_Random()) << 21;
@@ -801,8 +791,7 @@ void A_CPosRefire(mobj_t *actor)
 	if (P_Random() < 40)
 		return;
 
-	if (!actor->target || actor->target->health <= 0 ||
-	    !P_CheckSight(actor, actor->target))
+	if (!actor->target || actor->target->health <= 0 || !P_CheckSight(actor, actor->target))
 	{
 		P_SetMobjState(actor, actor->info->seestate);
 	}
@@ -816,8 +805,7 @@ void A_SpidRefire(mobj_t *actor)
 	if (P_Random() < 10)
 		return;
 
-	if (!actor->target || actor->target->health <= 0 ||
-	    !P_CheckSight(actor, actor->target))
+	if (!actor->target || actor->target->health <= 0 || !P_CheckSight(actor, actor->target))
 	{
 		P_SetMobjState(actor, actor->info->seestate);
 	}
@@ -955,8 +943,7 @@ void A_Tracer(mobj_t *actor)
 	// spawn a puff of smoke behind the rocket
 	P_SpawnPuff(actor->x, actor->y, actor->z);
 
-	th = P_SpawnMobj(actor->x - actor->momx, actor->y - actor->momy,
-			 actor->z, MT_SMOKE);
+	th = P_SpawnMobj(actor->x - actor->momx, actor->y - actor->momy, actor->z, MT_SMOKE);
 
 	th->momz = FRACUNIT;
 	th->tics -= P_Random() & 3;
@@ -1057,8 +1044,7 @@ boolean PIT_VileCheck(mobj_t *thing)
 
 	maxdist = thing->info->radius + mobjinfo[MT_VILE].radius;
 
-	if (abs(thing->x - viletryx) > maxdist ||
-	    abs(thing->y - viletryy) > maxdist)
+	if (abs(thing->x - viletryx) > maxdist || abs(thing->y - viletryy) > maxdist)
 		return true; // not actually touching
 
 	corpsehit	= thing;
@@ -1093,10 +1079,8 @@ void A_VileChase(mobj_t *actor)
 	if (actor->movedir != DI_NODIR)
 	{
 		// check for corpses to raise
-		viletryx =
-		    actor->x + actor->info->speed * xspeed[actor->movedir];
-		viletryy =
-		    actor->y + actor->info->speed * yspeed[actor->movedir];
+		viletryx = actor->x + actor->info->speed * xspeed[actor->movedir];
+		viletryy = actor->y + actor->info->speed * yspeed[actor->movedir];
 
 		xl = (viletryx - bmaporgx - MAXRADIUS * 2) >> MAPBLOCKSHIFT;
 		xh = (viletryx - bmaporgx + MAXRADIUS * 2) >> MAPBLOCKSHIFT;
@@ -1111,8 +1095,7 @@ void A_VileChase(mobj_t *actor)
 				// Call PIT_VileCheck to check
 				// whether object is a corpse
 				// that canbe raised.
-				if (!P_BlockThingsIterator(bx, by,
-							   PIT_VileCheck))
+				if (!P_BlockThingsIterator(bx, by, PIT_VileCheck))
 				{
 					// got one!
 					temp	      = actor->target;
@@ -1124,8 +1107,7 @@ void A_VileChase(mobj_t *actor)
 					S_StartSound(corpsehit, sfx_slop);
 					info = corpsehit->info;
 
-					P_SetMobjState(corpsehit,
-						       info->raisestate);
+					P_SetMobjState(corpsehit, info->raisestate);
 					corpsehit->height <<= 2;
 					corpsehit->flags  = info->flags;
 					corpsehit->health = info->spawnhealth;
@@ -1199,8 +1181,7 @@ void A_VileTarget(mobj_t *actor)
 
 	A_FaceTarget(actor);
 
-	fog = P_SpawnMobj(actor->target->x, actor->target->x, actor->target->z,
-			  MT_FIRE);
+	fog = P_SpawnMobj(actor->target->x, actor->target->x, actor->target->z, MT_FIRE);
 
 	actor->tracer = fog;
 	fog->target   = actor;
@@ -1362,8 +1343,7 @@ void A_PainShootSkull(mobj_t *actor, angle_t angle)
 	currentthinker = thinkercap.next;
 	while (currentthinker != &thinkercap)
 	{
-		if ((currentthinker->function.acp1 ==
-		     (actionf_p1)P_MobjThinker) &&
+		if ((currentthinker->function.acp1 == (actionf_p1)P_MobjThinker) &&
 		    ((mobj_t *)currentthinker)->type == MT_SKULL)
 			count++;
 		currentthinker = currentthinker->next;
@@ -1377,8 +1357,7 @@ void A_PainShootSkull(mobj_t *actor, angle_t angle)
 	// okay, there's playe for another one
 	an = angle >> ANGLETOFINESHIFT;
 
-	prestep = 4 * FRACUNIT +
-		  3 * (actor->info->radius + mobjinfo[MT_SKULL].radius) / 2;
+	prestep = 4 * FRACUNIT + 3 * (actor->info->radius + mobjinfo[MT_SKULL].radius) / 2;
 
 	x = actor->x + FixedMul(prestep, finecosine[an]);
 	y = actor->y + FixedMul(prestep, finesine[an]);
@@ -1643,15 +1622,9 @@ void A_BabyMetal(mobj_t *mo)
 	A_Chase(mo);
 }
 
-void A_OpenShotgun2(player_t *player, pspdef_t *psp)
-{
-	S_StartSound(player->mo, sfx_dbopn);
-}
+void A_OpenShotgun2(player_t *player, pspdef_t *psp) { S_StartSound(player->mo, sfx_dbopn); }
 
-void A_LoadShotgun2(player_t *player, pspdef_t *psp)
-{
-	S_StartSound(player->mo, sfx_dbload);
-}
+void A_LoadShotgun2(player_t *player, pspdef_t *psp) { S_StartSound(player->mo, sfx_dbload); }
 
 void A_ReFire(player_t *player, pspdef_t *psp);
 
@@ -1675,8 +1648,7 @@ void A_BrainAwake(mobj_t *mo)
 	braintargeton	= 0;
 
 	thinker = thinkercap.next;
-	for (thinker = thinkercap.next; thinker != &thinkercap;
-	     thinker = thinker->next)
+	for (thinker = thinkercap.next; thinker != &thinkercap; thinker = thinker->next)
 	{
 		if (thinker->function.acp1 != (actionf_p1)P_MobjThinker)
 			continue; // not a mobj
@@ -1702,8 +1674,7 @@ void A_BrainScream(mobj_t *mo)
 	int	z;
 	mobj_t *th;
 
-	for (x = mo->x - 196 * FRACUNIT; x < mo->x + 320 * FRACUNIT;
-	     x += FRACUNIT * 8)
+	for (x = mo->x - 196 * FRACUNIT; x < mo->x + 320 * FRACUNIT; x += FRACUNIT * 8)
 	{
 		y	 = mo->y - 320 * FRACUNIT;
 		z	 = 128 + P_Random() * 2 * FRACUNIT;
@@ -1758,10 +1729,9 @@ void A_BrainSpit(mobj_t *mo)
 	braintargeton = (braintargeton + 1) % numbraintargets;
 
 	// spawn brain missile
-	newmobj		= P_SpawnMissile(mo, targ, MT_SPAWNSHOT);
-	newmobj->target = targ;
-	newmobj->reactiontime =
-	    ((targ->y - mo->y) / newmobj->momy) / newmobj->state->tics;
+	newmobj		      = P_SpawnMissile(mo, targ, MT_SPAWNSHOT);
+	newmobj->target	      = targ;
+	newmobj->reactiontime = ((targ->y - mo->y) / newmobj->momy) / newmobj->state->tics;
 
 	S_StartSound(NULL, sfx_bospit);
 }

@@ -205,8 +205,7 @@ void *getsfx(char *sfxname, int *len)
 
 	// Pads the sound effect out to the mixing buffer size.
 	// The original realloc would interfere with zone memory.
-	paddedsize =
-	    ((size - 8 + (SAMPLECOUNT - 1)) / SAMPLECOUNT) * SAMPLECOUNT;
+	paddedsize = ((size - 8 + (SAMPLECOUNT - 1)) / SAMPLECOUNT) * SAMPLECOUNT;
 
 	// Allocate from zone memory.
 	paddedsfx = (unsigned char *)Z_Malloc(paddedsize + 8, PU_STATIC, 0);
@@ -252,8 +251,8 @@ int addsfx(int sfxid, int volume, int step, int seperation)
 
 	// Chainsaw troubles.
 	// Play these sound effects only one at a time.
-	if (sfxid == sfx_sawup || sfxid == sfx_sawidl || sfxid == sfx_sawful ||
-	    sfxid == sfx_sawhit || sfxid == sfx_stnmov || sfxid == sfx_pistol)
+	if (sfxid == sfx_sawup || sfxid == sfx_sawidl || sfxid == sfx_sawful || sfxid == sfx_sawhit ||
+	    sfxid == sfx_stnmov || sfxid == sfx_pistol)
 	{
 		// Loop all channels, check.
 		for (i = 0; i < NUM_CHANNELS; i++)
@@ -319,8 +318,7 @@ int addsfx(int sfxid, int volume, int step, int seperation)
 	// Per left/right channel.
 	//  x^2 seperation,
 	//  adjust volume properly.
-	leftvol =
-	    volume - ((volume * seperation * seperation) >> 16); ///(256*256);
+	leftvol	   = volume - ((volume * seperation * seperation) >> 16); ///(256*256);
 	seperation = seperation - 257;
 	rightvol   = volume - ((volume * seperation * seperation) >> 16);
 
@@ -433,8 +431,7 @@ int I_StartSound(int id, int vol, int sep, int pitch, int priority)
 #ifdef SNDSERV
 	if (sndserver)
 	{
-		fprintf(sndserver, "p%2.2x%2.2x%2.2x%2.2x\n", id, pitch, vol,
-			sep);
+		fprintf(sndserver, "p%2.2x%2.2x%2.2x%2.2x\n", id, pitch, vol, sep);
 		fflush(sndserver);
 	}
 	// warning: control reaches end of non-void function.
@@ -543,8 +540,7 @@ void I_UpdateSound(void)
 				// Increment index ???
 				channelstepremainder[chan] += channelstep[chan];
 				// MSB is next sample???
-				channels[chan] +=
-				    channelstepremainder[chan] >> 16;
+				channels[chan] += channelstepremainder[chan] >> 16;
 				// Limit to LSB???
 				channelstepremainder[chan] &= 65536 - 1;
 
@@ -669,8 +665,7 @@ void I_InitSound()
 	char buffer[256];
 
 	if (getenv("DOOMWADDIR"))
-		sprintf(buffer, "%s/%s", getenv("DOOMWADDIR"),
-			sndserver_filename);
+		sprintf(buffer, "%s/%s", getenv("DOOMWADDIR"), sndserver_filename);
 	else
 		sprintf(buffer, "%s", sndserver_filename);
 
@@ -733,8 +728,7 @@ void I_InitSound()
 		{
 			// Previously loaded already?
 			S_sfx[i].data = S_sfx[i].link->data;
-			lengths[i]    = lengths[(S_sfx[i].link - S_sfx) /
-						sizeof(sfxinfo_t)];
+			lengths[i]    = lengths[(S_sfx[i].link - S_sfx) / sizeof(sfxinfo_t)];
 		}
 	}
 
@@ -900,6 +894,5 @@ void I_SoundDelTimer()
 {
 	// Debug.
 	if (I_SoundSetTimer(0) == -1)
-		fprintf(stderr,
-			"I_SoundDelTimer: failed to remove interrupt. Doh!\n");
+		fprintf(stderr, "I_SoundDelTimer: failed to remove interrupt. Doh!\n");
 }

@@ -361,8 +361,7 @@ fixed_t R_PointToDist(fixed_t x, fixed_t y)
 		dy   = temp;
 	}
 
-	angle =
-	    (tantoangle[FixedDiv(dy, dx) >> DBITS] + ANG90) >> ANGLETOFINESHIFT;
+	angle = (tantoangle[FixedDiv(dy, dx) >> DBITS] + ANG90) >> ANGLETOFINESHIFT;
 
 	// use as cosine
 	dist = FixedDiv(dx, finesine[angle]);
@@ -498,8 +497,7 @@ void R_InitTextureMapping(void)
 	//
 	// Calc focallength
 	//  so FIELDOFVIEW angles covers SCREENWIDTH.
-	focallength = FixedDiv(centerxfrac,
-			       finetangent[FINEANGLES / 4 + FIELDOFVIEW / 2]);
+	focallength = FixedDiv(centerxfrac, finetangent[FINEANGLES / 4 + FIELDOFVIEW / 2]);
 
 	for (i = 0; i < FINEANGLES / 2; i++)
 	{
@@ -565,12 +563,10 @@ void R_InitLightTables(void)
 	//  for each level / distance combination.
 	for (i = 0; i < LIGHTLEVELS; i++)
 	{
-		startmap =
-		    ((LIGHTLEVELS - 1 - i) * 2) * NUMCOLORMAPS / LIGHTLEVELS;
+		startmap = ((LIGHTLEVELS - 1 - i) * 2) * NUMCOLORMAPS / LIGHTLEVELS;
 		for (j = 0; j < MAXLIGHTZ; j++)
 		{
-			scale = FixedDiv((SCREENWIDTH / 2 * FRACUNIT),
-					 (j + 1) << LIGHTZSHIFT);
+			scale = FixedDiv((SCREENWIDTH / 2 * FRACUNIT), (j + 1) << LIGHTZSHIFT);
 			scale >>= LIGHTSCALESHIFT;
 			level = startmap - scale / DISTMAP;
 
@@ -666,15 +662,14 @@ void R_ExecuteSetViewSize(void)
 	// planes
 	for (i = 0; i < viewheight; i++)
 	{
-		dy = ((i - viewheight / 2) << FRACBITS) + FRACUNIT / 2;
-		dy = abs(dy);
-		yslope[i] =
-		    FixedDiv((viewwidth << detailshift) / 2 * FRACUNIT, dy);
+		dy	  = ((i - viewheight / 2) << FRACBITS) + FRACUNIT / 2;
+		dy	  = abs(dy);
+		yslope[i] = FixedDiv((viewwidth << detailshift) / 2 * FRACUNIT, dy);
 	}
 
 	for (i = 0; i < viewwidth; i++)
 	{
-		cosadj = abs(finecosine[xtoviewangle[i] >> ANGLETOFINESHIFT]);
+		cosadj	     = abs(finecosine[xtoviewangle[i] >> ANGLETOFINESHIFT]);
 		distscale[i] = FixedDiv(FRACUNIT, cosadj);
 	}
 
@@ -682,13 +677,10 @@ void R_ExecuteSetViewSize(void)
 	//  for each level / scale combination.
 	for (i = 0; i < LIGHTLEVELS; i++)
 	{
-		startmap =
-		    ((LIGHTLEVELS - 1 - i) * 2) * NUMCOLORMAPS / LIGHTLEVELS;
+		startmap = ((LIGHTLEVELS - 1 - i) * 2) * NUMCOLORMAPS / LIGHTLEVELS;
 		for (j = 0; j < MAXLIGHTSCALE; j++)
 		{
-			level = startmap - j * SCREENWIDTH /
-					       (viewwidth << detailshift) /
-					       DISTMAP;
+			level = startmap - j * SCREENWIDTH / (viewwidth << detailshift) / DISTMAP;
 
 			if (level < 0)
 				level = 0;
@@ -777,8 +769,7 @@ void R_SetupFrame(player_t *player)
 
 	if (player->fixedcolormap)
 	{
-		fixedcolormap = colormaps + player->fixedcolormap * 256 *
-						sizeof(lighttable_t);
+		fixedcolormap = colormaps + player->fixedcolormap * 256 * sizeof(lighttable_t);
 
 		walllights = scalelightfixed;
 

@@ -22,8 +22,7 @@
 //
 //-----------------------------------------------------------------------------
 
-static const char rcsid[] =
-    "$Id: p_switch.c,v 1.3 1997/01/28 22:08:29 b1 Exp $";
+static const char rcsid[] = "$Id: p_switch.c,v 1.3 1997/01/28 22:08:29 b1 Exp $";
 
 #include "doomdef.h"
 #include "i_system.h"
@@ -136,10 +135,8 @@ void P_InitSwitchList(void)
 	    
 	    value = R_TextureNumForName(alphSwitchList[i].name1);
 #endif
-			switchlist[index++] =
-			    R_TextureNumForName(alphSwitchList[i].name1);
-			switchlist[index++] =
-			    R_TextureNumForName(alphSwitchList[i].name2);
+			switchlist[index++] = R_TextureNumForName(alphSwitchList[i].name1);
+			switchlist[index++] = R_TextureNumForName(alphSwitchList[i].name2);
 		}
 	}
 }
@@ -169,8 +166,7 @@ void P_StartButton(line_t *line, bwhere_e w, int texture, int time)
 			buttonlist[i].where    = w;
 			buttonlist[i].btexture = texture;
 			buttonlist[i].btimer   = time;
-			buttonlist[i].soundorg =
-			    (mobj_t *)&line->frontsector->soundorg;
+			buttonlist[i].soundorg = (mobj_t *)&line->frontsector->soundorg;
 			return;
 		}
 	}
@@ -211,8 +207,7 @@ void P_ChangeSwitchTexture(line_t *line, int useAgain)
 			sides[line->sidenum[0]].toptexture = switchlist[i ^ 1];
 
 			if (useAgain)
-				P_StartButton(line, top, switchlist[i],
-					      BUTTONTIME);
+				P_StartButton(line, top, switchlist[i], BUTTONTIME);
 
 			return;
 		}
@@ -221,13 +216,10 @@ void P_ChangeSwitchTexture(line_t *line, int useAgain)
 			if (switchlist[i] == texMid)
 			{
 				S_StartSound(buttonlist->soundorg, sound);
-				sides[line->sidenum[0]].midtexture =
-				    switchlist[i ^ 1];
+				sides[line->sidenum[0]].midtexture = switchlist[i ^ 1];
 
 				if (useAgain)
-					P_StartButton(line, middle,
-						      switchlist[i],
-						      BUTTONTIME);
+					P_StartButton(line, middle, switchlist[i], BUTTONTIME);
 
 				return;
 			}
@@ -235,15 +227,11 @@ void P_ChangeSwitchTexture(line_t *line, int useAgain)
 			{
 				if (switchlist[i] == texBot)
 				{
-					S_StartSound(buttonlist->soundorg,
-						     sound);
-					sides[line->sidenum[0]].bottomtexture =
-					    switchlist[i ^ 1];
+					S_StartSound(buttonlist->soundorg, sound);
+					sides[line->sidenum[0]].bottomtexture = switchlist[i ^ 1];
 
 					if (useAgain)
-						P_StartButton(line, bottom,
-							      switchlist[i],
-							      BUTTONTIME);
+						P_StartButton(line, bottom, switchlist[i], BUTTONTIME);
 
 					return;
 				}

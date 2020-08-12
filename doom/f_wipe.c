@@ -167,8 +167,8 @@ int wipe_doMelt(int width, int height, int ticks)
 				dy = (y[i] < 16) ? y[i] + 1 : 8;
 				if (y[i] + dy >= height)
 					dy = height - y[i];
-				s = &((short *)wipe_scr_end)[i * height + y[i]];
-				d = &((short *)wipe_scr)[y[i] * width + i];
+				s   = &((short *)wipe_scr_end)[i * height + y[i]];
+				d   = &((short *)wipe_scr)[y[i] * width + i];
 				idx = 0;
 				for (j = dy; j; j--)
 				{
@@ -217,9 +217,8 @@ int wipe_EndScreen(int x, int y, int width, int height)
 int wipe_ScreenWipe(int wipeno, int x, int y, int width, int height, int ticks)
 {
 	int rc;
-	static int (*wipes[])(int, int, int) = {
-	    wipe_initColorXForm, wipe_doColorXForm, wipe_exitColorXForm,
-	    wipe_initMelt,	 wipe_doMelt,	    wipe_exitMelt};
+	static int (*wipes[])(int, int, int) = {wipe_initColorXForm, wipe_doColorXForm, wipe_exitColorXForm,
+						wipe_initMelt,	     wipe_doMelt,	wipe_exitMelt};
 
 	void V_MarkRect(int, int, int, int);
 

@@ -35,8 +35,7 @@
 //
 //-----------------------------------------------------------------------------
 
-static const char rcsid[] =
-    "$Id: soundsrv.c,v 1.3 1997/01/29 22:40:44 b1 Exp $";
+static const char rcsid[] = "$Id: soundsrv.c,v 1.3 1997/01/29 22:40:44 b1 Exp $";
 
 #include <fcntl.h>
 #include <malloc.h>
@@ -376,8 +375,7 @@ void grabdata(int c, char **v)
 		else
 		{
 			S_sfx[i].data = S_sfx[i].link->data;
-			lengths[i]    = lengths[(S_sfx[i].link - S_sfx) /
-						sizeof(sfxinfo_t)];
+			lengths[i]    = lengths[(S_sfx[i].link - S_sfx) / sizeof(sfxinfo_t)];
 		}
 		// test only
 		//  {
@@ -418,8 +416,8 @@ int addsfx(int sfxid, int volume, int step, int seperation)
 
 	// play these sound effects
 	//  only one at a time
-	if (sfxid == sfx_sawup || sfxid == sfx_sawidl || sfxid == sfx_sawful ||
-	    sfxid == sfx_sawhit || sfxid == sfx_stnmov || sfxid == sfx_pistol)
+	if (sfxid == sfx_sawup || sfxid == sfx_sawidl || sfxid == sfx_sawful || sfxid == sfx_sawhit ||
+	    sfxid == sfx_stnmov || sfxid == sfx_pistol)
 	{
 		for (i = 0; i < 8; i++)
 		{
@@ -594,8 +592,7 @@ int main(int c, char **v)
 			do
 			{
 				scratchset = fdset;
-				rc = select(FD_SETSIZE, &scratchset, 0, 0,
-					    &zerowait);
+				rc	   = select(FD_SETSIZE, &scratchset, 0, 0, &zerowait);
 
 				if (rc > 0)
 				{
@@ -612,9 +609,7 @@ int main(int c, char **v)
 					else
 					{
 						if (snd_verbose)
-							fprintf(stderr,
-								"cmd: %c",
-								commandbuf[0]);
+							fprintf(stderr, "cmd: %c", commandbuf[0]);
 
 						switch (commandbuf[0])
 						{
@@ -625,65 +620,27 @@ int main(int c, char **v)
 
 							if (snd_verbose)
 							{
-								commandbuf[9] =
-								    0;
-								fprintf(
-								    stderr,
-								    "%s\n",
-								    commandbuf);
+								commandbuf[9] = 0;
+								fprintf(stderr, "%s\n", commandbuf);
 							}
 
-							commandbuf[0] -=
-							    commandbuf[0] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[1] -=
-							    commandbuf[1] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[2] -=
-							    commandbuf[2] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[3] -=
-							    commandbuf[3] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[4] -=
-							    commandbuf[4] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[5] -=
-							    commandbuf[5] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[6] -=
-							    commandbuf[6] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[7] -=
-							    commandbuf[7] >= 'a'
-								? 'a' - 10
-								: '0';
+							commandbuf[0] -= commandbuf[0] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[1] -= commandbuf[1] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[2] -= commandbuf[2] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[3] -= commandbuf[3] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[4] -= commandbuf[4] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[5] -= commandbuf[5] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[6] -= commandbuf[6] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[7] -= commandbuf[7] >= 'a' ? 'a' - 10 : '0';
 
 							//	p<snd#><step><vol><sep>
-							sndnum = (commandbuf[0]
-								  << 4) +
-								 commandbuf[1];
-							step = (commandbuf[2]
-								<< 4) +
-							       commandbuf[3];
-							step = steptable[step];
-							vol  = (commandbuf[4]
-								<< 4) +
-							      commandbuf[5];
-							sep = (commandbuf[6]
-							       << 4) +
-							      commandbuf[7];
+							sndnum = (commandbuf[0] << 4) + commandbuf[1];
+							step   = (commandbuf[2] << 4) + commandbuf[3];
+							step   = steptable[step];
+							vol    = (commandbuf[4] << 4) + commandbuf[5];
+							sep    = (commandbuf[6] << 4) + commandbuf[7];
 
-							handle =
-							    addsfx(sndnum, vol,
-								   step, sep);
+							handle = addsfx(sndnum, vol, step, sep);
 							// returns the handle
 							//	outputushort(handle);
 							break;
@@ -699,34 +656,18 @@ int main(int c, char **v)
 							int fd;
 							read(0, commandbuf, 3);
 							commandbuf[2] = 0;
-							fd	      = open(
-							       (char *)commandbuf,
-							       O_CREAT | O_WRONLY,
-							       0644);
-							commandbuf[0] -=
-							    commandbuf[0] >= 'a'
-								? 'a' - 10
-								: '0';
-							commandbuf[1] -=
-							    commandbuf[1] >= 'a'
-								? 'a' - 10
-								: '0';
-							sndnum = (commandbuf[0]
-								  << 4) +
-								 commandbuf[1];
-							write(
-							    fd,
-							    S_sfx[sndnum].data,
-							    lengths[sndnum]);
+							fd = open((char *)commandbuf, O_CREAT | O_WRONLY, 0644);
+							commandbuf[0] -= commandbuf[0] >= 'a' ? 'a' - 10 : '0';
+							commandbuf[1] -= commandbuf[1] >= 'a' ? 'a' - 10 : '0';
+							sndnum = (commandbuf[0] << 4) + commandbuf[1];
+							write(fd, S_sfx[sndnum].data, lengths[sndnum]);
 							close(fd);
 						}
 						break;
 
 						default:
-							fprintf(
-							    stderr,
-							    "Did not recognize "
-							    "command\n");
+							fprintf(stderr, "Did not recognize "
+									"command\n");
 							break;
 						}
 					}

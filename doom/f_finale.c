@@ -21,8 +21,7 @@
 //
 //-----------------------------------------------------------------------------
 
-static const char rcsid[] =
-    "$Id: f_finale.c,v 1.5 1997/02/03 21:26:34 b1 Exp $";
+static const char rcsid[] = "$Id: f_finale.c,v 1.5 1997/02/03 21:26:34 b1 Exp $";
 
 #include <ctype.h>
 
@@ -231,8 +230,7 @@ void F_Ticker(void)
 	if (gamemode == commercial)
 		return;
 
-	if (!finalestage &&
-	    finalecount > strlen(finaletext) * TEXTSPEED + TEXTWAIT)
+	if (!finalestage && finalecount > strlen(finaletext) * TEXTSPEED + TEXTWAIT)
 	{
 		finalecount   = 0;
 		finalestage   = 1;
@@ -393,9 +391,8 @@ void F_CastTicker(void)
 		if (castorder[castnum].name == NULL)
 			castnum = 0;
 		if (mobjinfo[castorder[castnum].type].seesound)
-			S_StartSound(
-			    NULL, mobjinfo[castorder[castnum].type].seesound);
-		caststate = &states[mobjinfo[castorder[castnum].type].seestate];
+			S_StartSound(NULL, mobjinfo[castorder[castnum].type].seesound);
+		caststate  = &states[mobjinfo[castorder[castnum].type].seestate];
 		castframes = 0;
 	}
 	else
@@ -484,36 +481,27 @@ void F_CastTicker(void)
 		// go into attack frame
 		castattacking = true;
 		if (castonmelee)
-			caststate = &states[mobjinfo[castorder[castnum].type]
-						.meleestate];
+			caststate = &states[mobjinfo[castorder[castnum].type].meleestate];
 		else
-			caststate = &states[mobjinfo[castorder[castnum].type]
-						.missilestate];
+			caststate = &states[mobjinfo[castorder[castnum].type].missilestate];
 		castonmelee ^= 1;
 		if (caststate == &states[S_NULL])
 		{
 			if (castonmelee)
-				caststate =
-				    &states[mobjinfo[castorder[castnum].type]
-						.meleestate];
+				caststate = &states[mobjinfo[castorder[castnum].type].meleestate];
 			else
-				caststate =
-				    &states[mobjinfo[castorder[castnum].type]
-						.missilestate];
+				caststate = &states[mobjinfo[castorder[castnum].type].missilestate];
 		}
 	}
 
 	if (castattacking)
 	{
-		if (castframes == 24 ||
-		    caststate ==
-			&states[mobjinfo[castorder[castnum].type].seestate])
+		if (castframes == 24 || caststate == &states[mobjinfo[castorder[castnum].type].seestate])
 		{
 		stopattack:
 			castattacking = false;
 			castframes    = 0;
-			caststate =
-			    &states[mobjinfo[castorder[castnum].type].seestate];
+			caststate     = &states[mobjinfo[castorder[castnum].type].seestate];
 		}
 	}
 
@@ -541,8 +529,7 @@ boolean F_CastResponder(event_t *ev)
 	castframes    = 0;
 	castattacking = false;
 	if (mobjinfo[castorder[castnum].type].deathsound)
-		S_StartSound(NULL,
-			     mobjinfo[castorder[castnum].type].deathsound);
+		S_StartSound(NULL, mobjinfo[castorder[castnum].type].deathsound);
 
 	return true;
 }
@@ -693,8 +680,7 @@ void F_BunnyScroll(void)
 		return;
 	if (finalecount < 1180)
 	{
-		V_DrawPatch((SCREENWIDTH - 13 * 8) / 2,
-			    (SCREENHEIGHT - 8 * 8) / 2, 0,
+		V_DrawPatch((SCREENWIDTH - 13 * 8) / 2, (SCREENHEIGHT - 8 * 8) / 2, 0,
 			    W_CacheLumpName("END0", PU_CACHE));
 		laststage = 0;
 		return;
@@ -710,8 +696,7 @@ void F_BunnyScroll(void)
 	}
 
 	sprintf(name, "END%i", stage);
-	V_DrawPatch((SCREENWIDTH - 13 * 8) / 2, (SCREENHEIGHT - 8 * 8) / 2, 0,
-		    W_CacheLumpName(name, PU_CACHE));
+	V_DrawPatch((SCREENWIDTH - 13 * 8) / 2, (SCREENHEIGHT - 8 * 8) / 2, 0, W_CacheLumpName(name, PU_CACHE));
 }
 
 //
@@ -733,23 +718,18 @@ void F_Drawer(void)
 		{
 		case 1:
 			if (gamemode == retail)
-				V_DrawPatch(
-				    0, 0, 0,
-				    W_CacheLumpName("CREDIT", PU_CACHE));
+				V_DrawPatch(0, 0, 0, W_CacheLumpName("CREDIT", PU_CACHE));
 			else
-				V_DrawPatch(0, 0, 0,
-					    W_CacheLumpName("HELP2", PU_CACHE));
+				V_DrawPatch(0, 0, 0, W_CacheLumpName("HELP2", PU_CACHE));
 			break;
 		case 2:
-			V_DrawPatch(0, 0, 0,
-				    W_CacheLumpName("VICTORY2", PU_CACHE));
+			V_DrawPatch(0, 0, 0, W_CacheLumpName("VICTORY2", PU_CACHE));
 			break;
 		case 3:
 			F_BunnyScroll();
 			break;
 		case 4:
-			V_DrawPatch(0, 0, 0,
-				    W_CacheLumpName("ENDPIC", PU_CACHE));
+			V_DrawPatch(0, 0, 0, W_CacheLumpName("ENDPIC", PU_CACHE));
 			break;
 		}
 	}

@@ -174,15 +174,13 @@ void LookForNodes(void)
 			//
 			// this is a new node
 			//
-			memcpy(&nodeadr[doomcom.numnodes], &remoteadr,
-			       sizeof(nodeadr[doomcom.numnodes]));
+			memcpy(&nodeadr[doomcom.numnodes], &remoteadr, sizeof(nodeadr[doomcom.numnodes]));
 
 			//
 			// if this node has a lower address, take all startup
 			// info
 			//
-			if (memcmp(&remoteadr, &nodeadr[0],
-				   sizeof(&remoteadr)) < 0)
+			if (memcmp(&remoteadr, &nodeadr[0], sizeof(&remoteadr)) < 0)
 			{
 			}
 
@@ -275,8 +273,7 @@ void FindResponseFile(void)
 			handle = fopen(&myargv[i][1], "rb");
 			if (!handle)
 				Error(STR_NORESP);
-			printf(STR_FOUNDRESP " \"%s\"!\n",
-			       strupr(&myargv[i][1]));
+			printf(STR_FOUNDRESP " \"%s\"!\n", strupr(&myargv[i][1]));
 			fseek(handle, 0, SEEK_END);
 			size = ftell(handle);
 			fseek(handle, 0, SEEK_SET);
@@ -299,13 +296,10 @@ void FindResponseFile(void)
 			do
 			{
 				myargv[indexinfile++] = infile + k;
-				while (k < size &&
-				       ((*(infile + k) >= ' ' + 1) &&
-					(*(infile + k) <= 'z')))
+				while (k < size && ((*(infile + k) >= ' ' + 1) && (*(infile + k) <= 'z')))
 					k++;
 				*(infile + k) = 0;
-				while (k < size && ((*(infile + k) <= ' ') ||
-						    (*(infile + k) > 'z')))
+				while (k < size && ((*(infile + k) <= ' ') || (*(infile + k) > 'z')))
 					k++;
 			} while (k < size);
 
@@ -376,8 +370,7 @@ void main(void)
 	}
 	else
 	{
-		for (doomcom.intnum = 0x60; doomcom.intnum <= 0x66;
-		     doomcom.intnum++)
+		for (doomcom.intnum = 0x60; doomcom.intnum <= 0x66; doomcom.intnum++)
 		{
 			vector = *(char far *far *)(doomcom.intnum * 4);
 			if (vector == NULL || *vector == 0xcf)

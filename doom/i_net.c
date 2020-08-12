@@ -47,15 +47,14 @@ static const char rcsid[] = "$Id: m_bbox.c,v 1.1 1997/02/03 22:45:10 b1 Exp $";
 #include "i_net.h"
 
 // For some odd reason...
-#define ntohl(x)                                                               \
-	((unsigned long int)((((unsigned long int)(x)&0x000000ffU) << 24) |    \
-			     (((unsigned long int)(x)&0x0000ff00U) << 8) |     \
-			     (((unsigned long int)(x)&0x00ff0000U) >> 8) |     \
+#define ntohl(x)                                                                                                       \
+	((unsigned long int)((((unsigned long int)(x)&0x000000ffU) << 24) |                                            \
+			     (((unsigned long int)(x)&0x0000ff00U) << 8) |                                             \
+			     (((unsigned long int)(x)&0x00ff0000U) >> 8) |                                             \
 			     (((unsigned long int)(x)&0xff000000U) >> 24)))
 
-#define ntohs(x)                                                               \
-	((unsigned short int)((((unsigned short int)(x)&0x00ff) << 8) |        \
-			      (((unsigned short int)(x)&0xff00) >> 8)))
+#define ntohs(x)                                                                                                       \
+	((unsigned short int)((((unsigned short int)(x)&0x00ff) << 8) | (((unsigned short int)(x)&0xff00) >> 8)))
 
 #define htonl(x) ntohl(x)
 #define htons(x) ntohs(x)
@@ -135,8 +134,7 @@ void PacketSend(void)
 	}
 
 	// printf ("sending %i\n",gametic);
-	c = sendto(sendsocket, &sw, doomcom->datalength, 0,
-		   (void *)&sendaddress[doomcom->remotenode],
+	c = sendto(sendsocket, &sw, doomcom->datalength, 0, (void *)&sendaddress[doomcom->remotenode],
 		   sizeof(sendaddress[doomcom->remotenode]));
 
 	//	if (c == -1)
@@ -155,8 +153,7 @@ void PacketGet(void)
 	doomdata_t	   sw;
 
 	fromlen = sizeof(fromaddress);
-	c	= recvfrom(insocket, &sw, sizeof(sw), 0,
-			   (struct sockaddr *)&fromaddress, &fromlen);
+	c	= recvfrom(insocket, &sw, sizeof(sw), 0, (struct sockaddr *)&fromaddress, &fromlen);
 	if (c == -1)
 	{
 		if (errno != EWOULDBLOCK)
@@ -168,15 +165,13 @@ void PacketGet(void)
 	{
 		static int first = 1;
 		if (first)
-			printf("len=%d:p=[0x%x 0x%x] \n", c, *(int *)&sw,
-			       *((int *)&sw + 1));
+			printf("len=%d:p=[0x%x 0x%x] \n", c, *(int *)&sw, *((int *)&sw + 1));
 		first = 0;
 	}
 
 	// find remote node number
 	for (i = 0; i < doomcom->numnodes; i++)
-		if (fromaddress.sin_addr.s_addr ==
-		    sendaddress[i].sin_addr.s_addr)
+		if (fromaddress.sin_addr.s_addr == sendaddress[i].sin_addr.s_addr)
 			break;
 
 	if (i == doomcom->numnodes)
@@ -220,8 +215,7 @@ int GetLocalAddress(void)
 
 	hostentry = gethostbyname(hostname);
 	if (!hostentry)
-		I_Error(
-		    "GetLocalAddress : gethostbyname: couldn't get local host");
+		I_Error("GetLocalAddress : gethostbyname: couldn't get local host");
 
 	return *(int *)hostentry->h_addr_list[0];
 }
@@ -294,17 +288,14 @@ void I_InitNetwork(void)
 		sendaddress[doomcom->numnodes].sin_port	  = htons(DOOMPORT);
 		if (myargv[i][0] == '.')
 		{
-			sendaddress[doomcom->numnodes].sin_addr.s_addr =
-			    inet_addr(myargv[i] + 1);
+			sendaddress[doomcom->numnodes].sin_addr.s_addr = inet_addr(myargv[i] + 1);
 		}
 		else
 		{
 			hostentry = gethostbyname(myargv[i]);
 			if (!hostentry)
-				I_Error("gethostbyname: couldn't find %s",
-					myargv[i]);
-			sendaddress[doomcom->numnodes].sin_addr.s_addr =
-			    *(int *)hostentry->h_addr_list[0];
+				I_Error("gethostbyname: couldn't find %s", myargv[i]);
+			sendaddress[doomcom->numnodes].sin_addr.s_addr = *(int *)hostentry->h_addr_list[0];
 		}
 		doomcom->numnodes++;
 	}

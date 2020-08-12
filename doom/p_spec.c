@@ -146,32 +146,26 @@ void P_InitPicAnims(void)
 		if (animdefs[i].istexture)
 		{
 			// different episode ?
-			if (R_CheckTextureNumForName(animdefs[i].startname) ==
-			    -1)
+			if (R_CheckTextureNumForName(animdefs[i].startname) == -1)
 				continue;
 
-			lastanim->picnum =
-			    R_TextureNumForName(animdefs[i].endname);
-			lastanim->basepic =
-			    R_TextureNumForName(animdefs[i].startname);
+			lastanim->picnum  = R_TextureNumForName(animdefs[i].endname);
+			lastanim->basepic = R_TextureNumForName(animdefs[i].startname);
 		}
 		else
 		{
 			if (W_CheckNumForName(animdefs[i].startname) == -1)
 				continue;
 
-			lastanim->picnum =
-			    R_FlatNumForName(animdefs[i].endname);
-			lastanim->basepic =
-			    R_FlatNumForName(animdefs[i].startname);
+			lastanim->picnum  = R_FlatNumForName(animdefs[i].endname);
+			lastanim->basepic = R_FlatNumForName(animdefs[i].startname);
 		}
 
 		lastanim->istexture = animdefs[i].istexture;
 		lastanim->numpics   = lastanim->picnum - lastanim->basepic + 1;
 
 		if (lastanim->numpics < 2)
-			I_Error("P_InitPicAnims: bad cycle from %s to %s",
-				animdefs[i].startname, animdefs[i].endname);
+			I_Error("P_InitPicAnims: bad cycle from %s to %s", animdefs[i].startname, animdefs[i].endname);
 
 		lastanim->speed = animdefs[i].speed;
 		lastanim++;
@@ -201,8 +195,7 @@ side_t *getSide(int currentSector, int line, int side)
 //
 sector_t *getSector(int currentSector, int line, int side)
 {
-	return sides[(sectors[currentSector].lines[line])->sidenum[side]]
-	    .sector;
+	return sides[(sectors[currentSector].lines[line])->sidenum[side]].sector;
 }
 
 //
@@ -210,10 +203,7 @@ sector_t *getSector(int currentSector, int line, int side)
 // Given the sector number and the line number,
 //  it will tell you whether the line is two-sided or not.
 //
-int twoSided(int sector, int line)
-{
-	return (sectors[sector].lines[line])->flags & ML_TWOSIDED;
-}
+int twoSided(int sector, int line) { return (sectors[sector].lines[line])->flags & ML_TWOSIDED; }
 
 //
 // getNextSector()
@@ -314,8 +304,7 @@ fixed_t P_FindNextHighestFloor(sector_t *sec, int currentheight)
 		// Check for overflow. Exit.
 		if (h >= MAX_ADJOINING_SECTORS)
 		{
-			fprintf(stderr,
-				"Sector with more than 20 adjoining sectors\n");
+			fprintf(stderr, "Sector with more than 20 adjoining sectors\n");
 			break;
 		}
 	}
@@ -1029,8 +1018,7 @@ void P_UpdateSpecials(void)
 	{
 		for (i = anim->basepic; i < anim->basepic + anim->numpics; i++)
 		{
-			pic = anim->basepic +
-			      ((leveltime / anim->speed + i) % anim->numpics);
+			pic = anim->basepic + ((leveltime / anim->speed + i) % anim->numpics);
 			if (anim->istexture)
 				texturetranslation[i] = pic;
 			else
@@ -1061,25 +1049,18 @@ void P_UpdateSpecials(void)
 				switch (buttonlist[i].where)
 				{
 				case top:
-					sides[buttonlist[i].line->sidenum[0]]
-					    .toptexture =
-					    buttonlist[i].btexture;
+					sides[buttonlist[i].line->sidenum[0]].toptexture = buttonlist[i].btexture;
 					break;
 
 				case middle:
-					sides[buttonlist[i].line->sidenum[0]]
-					    .midtexture =
-					    buttonlist[i].btexture;
+					sides[buttonlist[i].line->sidenum[0]].midtexture = buttonlist[i].btexture;
 					break;
 
 				case bottom:
-					sides[buttonlist[i].line->sidenum[0]]
-					    .bottomtexture =
-					    buttonlist[i].btexture;
+					sides[buttonlist[i].line->sidenum[0]].bottomtexture = buttonlist[i].btexture;
 					break;
 				}
-				S_StartSound((mobj_t *)&buttonlist[i].soundorg,
-					     sfx_swtchn);
+				S_StartSound((mobj_t *)&buttonlist[i].soundorg, sfx_swtchn);
 				memset(&buttonlist[i], 0, sizeof(button_t));
 			}
 		}
@@ -1112,8 +1093,7 @@ int EV_DoDonut(line_t *line)
 		s2  = getNextSector(s1->lines[0], s1);
 		for (i = 0; i < s2->linecount; i++)
 		{
-			if ((!s2->lines[i]->flags & ML_TWOSIDED) ||
-			    (s2->lines[i]->backsector == s1))
+			if ((!s2->lines[i]->flags & ML_TWOSIDED) || (s2->lines[i]->backsector == s1))
 				continue;
 			s3 = s2->lines[i]->backsector;
 

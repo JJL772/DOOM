@@ -22,8 +22,7 @@
 //
 //-----------------------------------------------------------------------------
 
-static const char rcsid[] =
-    "$Id: p_lights.c,v 1.5 1997/02/03 22:45:11 b1 Exp $";
+static const char rcsid[] = "$Id: p_lights.c,v 1.5 1997/02/03 22:45:11 b1 Exp $";
 
 #include "m_random.h"
 #include "z_zone.h"
@@ -76,9 +75,8 @@ void P_SpawnFireFlicker(sector_t *sector)
 	flick->thinker.function.acp1 = (actionf_p1)T_FireFlicker;
 	flick->sector		     = sector;
 	flick->maxlight		     = sector->lightlevel;
-	flick->minlight =
-	    P_FindMinSurroundingLight(sector, sector->lightlevel) + 16;
-	flick->count = 4;
+	flick->minlight		     = P_FindMinSurroundingLight(sector, sector->lightlevel) + 16;
+	flick->count		     = 4;
 }
 
 //
@@ -174,7 +172,7 @@ void P_SpawnStrobeFlash(sector_t *sector, int fastOrSlow, int inSync)
 	flash->brighttime	     = STROBEBRIGHT;
 	flash->thinker.function.acp1 = (actionf_p1)T_StrobeFlash;
 	flash->maxlight		     = sector->lightlevel;
-	flash->minlight = P_FindMinSurroundingLight(sector, sector->lightlevel);
+	flash->minlight		     = P_FindMinSurroundingLight(sector, sector->lightlevel);
 
 	if (flash->minlight == flash->maxlight)
 		flash->minlight = 0;
@@ -265,7 +263,7 @@ void EV_LightTurnOn(line_t *line, int bright)
 				for (j = 0; j < sector->linecount; j++)
 				{
 					templine = sector->lines[j];
-					temp = getNextSector(templine, sector);
+					temp	 = getNextSector(templine, sector);
 
 					if (!temp)
 						continue;
@@ -317,9 +315,9 @@ void P_SpawnGlowingLight(sector_t *sector)
 
 	P_AddThinker(&g->thinker);
 
-	g->sector   = sector;
-	g->minlight = P_FindMinSurroundingLight(sector, sector->lightlevel);
-	g->maxlight = sector->lightlevel;
+	g->sector		 = sector;
+	g->minlight		 = P_FindMinSurroundingLight(sector, sector->lightlevel);
+	g->maxlight		 = sector->lightlevel;
 	g->thinker.function.acp1 = (actionf_p1)T_Glow;
 	g->direction		 = -1;
 

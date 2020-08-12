@@ -241,8 +241,7 @@ void W_Reload(void)
 	// Fill in lumpinfo
 	lump_p = &lumpinfo[reloadlump];
 
-	for (i = reloadlump; i < reloadlump + lumpcount;
-	     i++, lump_p++, fileinfo++)
+	for (i = reloadlump; i < reloadlump + lumpcount; i++, lump_p++, fileinfo++)
 	{
 		if (lumpcache[i])
 			Z_Free(lumpcache[i]);
@@ -346,8 +345,7 @@ int W_CheckNumForName(char *name)
 
 	while (lump_p-- != lumpinfo)
 	{
-		if (*(int *)lump_p->name == v1 &&
-		    *(int *)&lump_p->name[4] == v2)
+		if (*(int *)lump_p->name == v1 && *(int *)&lump_p->name[4] == v2)
 		{
 			return lump_p - lumpinfo;
 		}
@@ -416,8 +414,7 @@ void W_ReadLump(int lump, void *dest)
 	c = read(handle, dest, l->size);
 
 	if (c < l->size)
-		I_Error("W_ReadLump: only read %i of %i on lump %i", c, l->size,
-			lump);
+		I_Error("W_ReadLump: only read %i of %i on lump %i", c, l->size, lump);
 
 	if (l->handle == -1)
 		close(handle);
@@ -455,10 +452,7 @@ void *W_CacheLumpNum(int lump, int tag)
 //
 // W_CacheLumpName
 //
-void *W_CacheLumpName(char *name, int tag)
-{
-	return W_CacheLumpNum(W_GetNumForName(name), tag);
-}
+void *W_CacheLumpName(char *name, int tag) { return W_CacheLumpNum(W_GetNumForName(name), tag); }
 
 //
 // W_Profile
@@ -486,8 +480,7 @@ void W_Profile(void)
 		}
 		else
 		{
-			block =
-			    (memblock_t *)((byte *)ptr - sizeof(memblock_t));
+			block = (memblock_t *)((byte *)ptr - sizeof(memblock_t));
 			if (block->tag < PU_PURGELEVEL)
 				ch = 'S';
 			else
