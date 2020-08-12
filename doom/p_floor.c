@@ -174,15 +174,6 @@ result_e T_MovePlane(sector_t *sector, fixed_t speed, fixed_t dest, boolean crus
 				lastpos = sector->ceilingheight;
 				sector->ceilingheight += speed;
 				flag = P_ChangeSector(sector, crush);
-// UNUSED
-#if 0
-		if (flag == true)
-		{
-		    sector->ceilingheight = lastpos;
-		    P_ChangeSector(sector,crush);
-		    return crushed;
-		}
-#endif
 			}
 			break;
 		}
