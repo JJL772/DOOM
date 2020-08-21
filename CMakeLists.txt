@@ -19,7 +19,7 @@ add_executable(doom ${DOOM_FILES})
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	target_compile_definitions(doom PUBLIC NORMALUNIX LINUX)
-	target_link_libraries(doom PUBLIC X11 Xext m c nsl)
+	target_link_libraries(doom PUBLIC X11 Xext m c nsl SDL2)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32 -g")
 endif()
 
