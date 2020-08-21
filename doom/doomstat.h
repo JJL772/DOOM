@@ -237,7 +237,6 @@ extern doomcom_t *doomcom;
 extern doomdata_t *netbuffer;
 
 extern ticcmd_t localcmds[BACKUPTICS];
-extern int	rndindex;
 
 extern int maketic;
 extern int nettics[MAXNETNODES];
