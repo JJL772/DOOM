@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"wscript": "python",
+		"*.S": "asm",
+		"*.cfg": "python",
+		"DOOMNET.C": "cpp"
+	}
+}

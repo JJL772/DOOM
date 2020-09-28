@@ -1,2 +1,3 @@
 doom/linux
 build*
+cmake-build*
